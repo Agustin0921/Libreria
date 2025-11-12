@@ -1666,7 +1666,7 @@ th {
 }
 @media screen and (max-width: 650px){
     .body-login{
-      height: 120vh;
+      height: 130vh;
     }
 
     .container {
@@ -1834,6 +1834,7 @@ th {
   text-decoration: none;
   border: 2px solid transparent;
   border-radius: 20px;
+  margin-bottom: 10px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
@@ -2725,6 +2726,7 @@ th {
         order: 3;
     }
     
+    
     .carrito-item > img {
         width: 170px;
         height: 170px;
@@ -2973,8 +2975,8 @@ th {
   }
   
   .carrito-item img {
-    width: 80px;
-    height: 80px;
+    width: 180px;
+    height: 180px;
   }
   
   .carrito-resumen {
@@ -4266,32 +4268,6 @@ th {
     width: 70%;
     height: 150px;
   }
-
-  /* LOGIN */
-  .container {
-    width: 95%;
-    height: auto;
-    margin: 10px;
-  }
-
-  .form-box {
-    position: relative;
-    width: 100%;
-    height: auto;
-    padding: 30px 20px;
-  }
-
-  .toggle-box::before {
-    display: none;
-  }
-
-  .toggle-panel {
-    position: relative;
-    width: 100%;
-    height: auto;
-    padding: 30px 20px;
-  }
-
   /* NOVEDADES */
   .hero-novedades {
     height: 50vh;
@@ -4905,6 +4881,116 @@ section.impacto-social {
   
   .estadistica .label {
     font-size: 1rem !important;
+  }
+}
+
+/* === Centrado de cards en Ofertas y Trabajos === */
+.ofertas-grid,
+.trabajos-grid {
+  display: grid;
+  justify-content: center; /* Centra las columnas horizontalmente */
+  align-items: center;
+}
+
+.oferta-card,
+.trabajo-card {
+  margin: 0 auto;           /* Centra cada card dentro del grid */
+  max-width: 350px;         /* Tamaño máximo uniforme */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .oferta-card,
+  .trabajo-card {
+    max-width: 90%;
+  }
+}
+
+/* ============================================================
+   🌟 MENÚ NOVEDADES CON EFECTO GLASS Y ANIMACIÓN "X"
+============================================================ */
+@media screen and (max-width: 900px) {
+  .menu-toggle-novedades {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1200;
+    transition: transform 0.3s ease;
+  }
+
+  /* Ícono tipo “X” */
+  .menu-toggle-novedades.open i {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-novedades {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px 0;
+    z-index: 1000;
+  }
+
+  .navbar-novedades .nav_links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 260px;
+    height: 100vh;
+    background: rgba(118, 75, 162, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    padding-top: 80px;
+    transition: right 0.3s ease;
+    z-index: 1100;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .navbar-novedades .nav_links.active {
+    right: 0;
+  }
+
+  .navbar-novedades .nav_links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-novedades .nav_links a {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .navbar-novedades .nav_links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Fondo oscuro al abrir menú */
+  body.menu-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
   }
 }
 

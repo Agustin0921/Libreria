@@ -229,3 +229,61 @@ function initAnimacionInicial() {
         });
     }, 500);
 }
+
+// === MENÚ HAMBURGUESA - NOVEDADES ===
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle-novedades");
+  const navLinks = document.querySelector(".navbar-novedades .nav_links");
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle("active");
+      menuToggle.classList.toggle("open");
+      document.body.classList.toggle("menu-open");
+
+      // Cambiar ícono (si usas FontAwesome)
+      const icon = menuToggle.querySelector("i");
+      if (icon) {
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
+      }
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    navLinks.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        navLinks.classList.remove("active");
+        menuToggle.classList.remove("open");
+        document.body.classList.remove("menu-open");
+
+        const icon = menuToggle.querySelector("i");
+        if (icon) {
+          icon.classList.add("fa-bars");
+          icon.classList.remove("fa-times");
+        }
+      }
+    });
+
+    // Cerrar al hacer click fuera
+    document.addEventListener("click", (e) => {
+      if (
+        navLinks.classList.contains("active") &&
+        !navLinks.contains(e.target) &&
+        !menuToggle.contains(e.target)
+      ) {
+        navLinks.classList.remove("active");
+        menuToggle.classList.remove("open");
+        document.body.classList.remove("menu-open");
+
+        const icon = menuToggle.querySelector("i");
+        if (icon) {
+          icon.classList.add("fa-bars");
+          icon.classList.remove("fa-times");
+        }
+      }
+    });
+  }
+
+  console.log("🍔 Menú hamburguesa de Novedades inicializado ✅");
+});

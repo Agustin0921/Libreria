@@ -341,22 +341,72 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- MENÚ RESPONSIVE (NAVBAR) ---
+    // --- MENÚ RESPONSIVE (NAVBAR) MEJORADO ---
   const toggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
   if (toggle && navLinks) {
-    toggle.addEventListener("click", () => {
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
       navLinks.classList.toggle("active");
       toggle.classList.toggle("open");
 
+      // Cambiar ícono de manera más confiable
       const icon = toggle.querySelector("i");
       if (navLinks.classList.contains("active")) {
         icon.classList.remove("fa-bars");
         icon.classList.add("fa-times");
+        // Prevenir scroll del body cuando el menú está abierto
+        document.body.style.overflow = 'hidden';
       } else {
         icon.classList.remove("fa-times");
         icon.classList.add("fa-bars");
+        // Restaurar scroll del body
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Cerrar menú al hacer clic en un enlace (móvil)
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        navLinks.classList.remove("active");
+        toggle.classList.remove("open");
+        
+        const icon = toggle.querySelector("i");
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+        
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Cerrar menú al hacer clic fuera (móvil)
+    document.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('active') && 
+          !navLinks.contains(e.target) && 
+          !toggle.contains(e.target)) {
+        navLinks.classList.remove("active");
+        toggle.classList.remove("open");
+        
+        const icon = toggle.querySelector("i");
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+        
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Cerrar menú con tecla Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+        navLinks.classList.remove("active");
+        toggle.classList.remove("open");
+        
+        const icon = toggle.querySelector("i");
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-bars");
+        
+        document.body.style.overflow = '';
       }
     });
   }
@@ -609,3 +659,24 @@ if (localStorage.getItem("usuario")) {
     localStorage.removeItem("usuario");
   }
 }
+
+
+
+// === NAVBAR DESAPARECE AL HACER SCROLL ===
+let lastScroll = 0;
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+  if (!navbar) return;
+
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    // Desplazando hacia abajo → ocultar
+    navbar.classList.add("hide");
+  } else {
+    // Desplazando hacia arriba → mostrar
+    navbar.classList.remove("hide");
+  }
+
+  lastScroll = currentScroll;
+});
