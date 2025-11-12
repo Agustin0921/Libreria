@@ -2,14 +2,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   const usuarioGuardado = localStorage.getItem("usuario");
 
+  // COMENTADO PARA GITHUB PAGES - Descomenta si necesitas en local
   // Si no estás en modo servidor (no logueado realmente), limpiar
-  if (!window.location.href.includes("localhost") && !window.location.href.includes("127.0.0.1")) {
-    if (usuarioGuardado) {
-      localStorage.removeItem("usuario");
-      localStorage.removeItem("token");
-      console.log("🧹 Sesión limpia: usuario eliminado porque no hay servidor activo.");
-    }
-  }
+  // if (!window.location.href.includes("localhost") && !window.location.href.includes("127.0.0.1")) {
+  //   if (usuarioGuardado) {
+  //     localStorage.removeItem("usuario");
+  //     localStorage.removeItem("token");
+  //     console.log("🧹 Sesión limpia: usuario eliminado porque no hay servidor activo.");
+  //   }
+  // }
 });
 
 // === CARRITO DE COMPRAS MEJORADO ===
@@ -210,24 +211,40 @@ window.finalizarCompra = finalizarCompra;
 document.addEventListener("DOMContentLoaded", () => {
   // === LOGIN Y REGISTRO (MISMA PÁGINA) ===
   if (window.location.pathname.includes("login.html")) {
+    console.log("🔧 Inicializando página de login...");
+    
     const container = document.querySelector(".container");
     const registerBtn = document.querySelector(".register-btn");
     const loginBtn = document.querySelector(".login-btn");
 
     if (registerBtn && loginBtn && container) {
-      registerBtn.addEventListener("click", () => container.classList.add("active"));
-      loginBtn.addEventListener("click", () => container.classList.remove("active"));
+      registerBtn.addEventListener("click", () => {
+        container.classList.add("active");
+        console.log("📝 Cambiando a registro");
+      });
+      loginBtn.addEventListener("click", () => {
+        container.classList.remove("active");
+        console.log("🔐 Cambiando a login");
+      });
     }
 
     // === REGISTRO ===
     const registerForm = document.getElementById("register-form");
     if (registerForm) {
+      console.log("✅ Formulario de registro encontrado");
       registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        console.log("📨 Enviando formulario de registro...");
 
         const nombre = document.getElementById("register-nombre").value.trim();
         const email = document.getElementById("register-email").value.trim();
         const password = document.getElementById("register-password").value.trim();
+
+        // Verificación básica
+        if (!nombre || !email || !password) {
+          alert("Por favor completa todos los campos");
+          return;
+        }
 
         const formData = new FormData();
         formData.append("nombre", nombre);
@@ -252,19 +269,38 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "index.html";
         } catch (err) {
           console.error("Error al registrar:", err);
-          alert("Error de conexión con el servidor");
+          // Fallback para cuando el backend no está disponible
+          alert("Backend no disponible. Usando modo demo...");
+          const usuarioDemo = {
+            nombre: nombre,
+            email: email,
+            id: Date.now()
+          };
+          localStorage.setItem("usuario", JSON.stringify(usuarioDemo));
+          alert("✅ Registro demo exitoso. Bienvenido " + nombre);
+          window.location.href = "index.html";
         }
       });
+    } else {
+      console.log("❌ Formulario de registro NO encontrado");
     }
 
     // === LOGIN ===
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
+      console.log("✅ Formulario de login encontrado");
       loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        console.log("📨 Enviando formulario de login...");
 
         const email = document.getElementById("login-email").value.trim();
         const password = document.getElementById("login-password").value.trim();
+
+        // Verificación básica
+        if (!email || !password) {
+          alert("Por favor completa todos los campos");
+          return;
+        }
 
         const formData = new FormData();
         formData.append("email", email);
@@ -288,9 +324,20 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "index.html";
         } catch (err) {
           console.error("Error al iniciar sesión:", err);
-          alert("Error de conexión con el servidor");
+          // Fallback para cuando el backend no está disponible
+          alert("Backend no disponible. Usando modo demo...");
+          const usuarioDemo = {
+            nombre: "Usuario Demo",
+            email: email,
+            id: Date.now()
+          };
+          localStorage.setItem("usuario", JSON.stringify(usuarioDemo));
+          alert("✅ Login demo exitoso. Bienvenido!");
+          window.location.href = "index.html";
         }
       });
+    } else {
+      console.log("❌ Formulario de login NO encontrado");
     }
   }
 
@@ -336,13 +383,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mostrar u ocultar el icono y el menú según haya sesión
   if (usuario) {
-    userName.textContent = `Hola, ${usuario.nombre}`;
-    userMenu.style.display = "flex";
-    loginIcon.style.display = "none";
-  } else {
-    userMenu.style.display = "none";
-    loginIcon.style.display = "inline-flex";
-  }
+  if (userName) userName.textContent = `Hola, ${usuario.nombre}`;
+  if (userMenu) userMenu.style.display = "flex";
+  if (loginIcon) loginIcon.style.display = "none";
+} else {
+  if (userMenu) userMenu.style.display = "none";
+  if (loginIcon) loginIcon.style.display = "inline-flex";
+}
+
 
   // Abrir/cerrar menú desplegable
   const dropdown = document.getElementById("dropdownMenu");
@@ -485,22 +533,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // === LOADER DE TRANSICIÓN ENTRE PÁGINAS ===
-  const loader = document.getElementById("loader");
-  if (loader) {
-    setTimeout(() => loader.classList.add("oculto"), 1200);
-
-    const enlaces = document.querySelectorAll("a[href]");
-    enlaces.forEach(link => {
-      link.addEventListener("click", e => {
-        const href = link.getAttribute("href");
-        if (!href.startsWith("http") && !href.startsWith("#") && !href.includes("mailto:")) {
-          e.preventDefault();
-          loader.classList.remove("oculto");
-          setTimeout(() => { window.location.href = href; }, 700);
-        }
-      });
-    });
-  }
+  // === LOADER MEJORADO ===
+const loader = document.getElementById("loader");
+if (loader) {
+  // Ocultar loader después de 1.2 segundos
+  setTimeout(() => {
+    loader.classList.add("oculto");
+  }, 1200);
+  
+  // NO interceptar clics en enlaces - dejar que naveguen normalmente
+}
 
   // === NAVBAR MEJORADO PARA NOVEDADES ===
   if (window.location.pathname.includes("novedades.html")) {
@@ -561,56 +603,3 @@ if (localStorage.getItem("usuario")) {
     localStorage.removeItem("usuario");
   }
 }
-
-// === LOADER (animación durante login/register o cambio de página) ===
-const loader = document.getElementById("loader");
-
-function mostrarLoader() {
-  if (loader) loader.classList.add("active");
-}
-
-function ocultarLoader() {
-  if (loader) loader.classList.remove("active");
-}
-
-// Mostrar loader mientras se procesa login/register
-const loginForm = document.getElementById("login-form");
-const registerForm = document.getElementById("register-form");
-
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    mostrarLoader();
-
-    // Simula validación (reemplazá con tu fetch al backend)
-    setTimeout(() => {
-      ocultarLoader();
-      window.location.href = "index.html";
-    }, 2000);
-  });
-}
-
-if (registerForm) {
-  registerForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    mostrarLoader();
-
-    // Simula registro (reemplazá con tu fetch al backend)
-    setTimeout(() => {
-      ocultarLoader();
-      window.location.href = "index.html";
-    }, 2000);
-  });
-}
-
-// Mostrar loader al navegar a otra página
-document.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", e => {
-    const href = link.getAttribute("href");
-    if (href && !href.startsWith("#") && !href.includes("javascript")) {
-      e.preventDefault();
-      mostrarLoader();
-      setTimeout(() => { window.location.href = href; }, 800);
-    }
-  });
-});

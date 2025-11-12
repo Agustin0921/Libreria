@@ -1664,8 +1664,11 @@ th {
     border: 2px solid #fff;
     box-shadow: none;
 }
-
 @media screen and (max-width: 650px){
+    .body-login{
+      height: 120vh;
+    }
+
     .container {
         height: calc(100vh - 40px);
     }
@@ -1674,6 +1677,34 @@ th {
         bottom: 0;
         width: 100%;
         height: 70%;
+        /* CENTRAR CONTENIDO */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* CENTRAR FORMULARIOS */
+    .form-container form {
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* CENTRAR INPUTS */
+    .form-container input {
+        width: 100% !important;
+        max-width: 280px;
+        margin: 10px auto;
+    }
+
+    /* CENTRAR BOTONES DEL FORMULARIO */
+    .form-container button {
+        width: 100%;
+        max-width: 280px;
+        margin: 15px auto 0;
     }
 
     .container.active .form-box{
@@ -1694,27 +1725,68 @@ th {
         top: 70%;
     }
 
+    /* CORRECCIÓN PARA LOS TOGGLE-PANEL - ELIMINAR POSICIONAMIENTO ABSOLUTO QUE INTERFIERE */
+    .toggle-box {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
     .toggle-panel{
         width: 100%;
         height: 30%;
+        /* CENTRAR CONTENIDO DEL TOGGLE */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0 20px;
+        box-sizing: border-box;
     }
 
     .toggle-panel.toggle-left{
         top: 0;
+        /* ELIMINAR left Y right QUE INTERFIEREN */
+        left: 50% !important;
+        right: auto !important;
     }
 
     .container.active .toggle-panel.toggle-left{
-        left: 0;
         top: -30%;
+        left: 50% !important;
+        transform: translateX(-50%);
     }
 
     .toggle-panel.toggle-right{
-        right: 0;
-        bottom: -30%; 
+        bottom: -30%;
+        /* ELIMINAR left Y right QUE INTERFIEREN */
+        left: 50% !important;
+        right: auto !important;
+        top: auto;
     }
 
     .container.active .toggle-panel.toggle-right{
         bottom: 0;
+        left: 50% !important;
+        transform: translateX(-50%);
+    }
+
+    /* CENTRAR BOTONES DEL TOGGLE */
+    .toggle-panel button {
+        margin: 10px auto;
+        width: 80%;
+        max-width: 200px;
+    }
+
+    /* ASEGURAR QUE EL TEXTO ESTÉ CENTRADO */
+    .toggle-panel h1,
+    .toggle-panel p {
+        text-align: center;
+        width: 100%;
     }
 }
 
@@ -1726,6 +1798,53 @@ th {
     .toggle-panel h1{
         font-size: 30px;
     }
+
+    /* AJUSTES ADICIONALES PARA PANTALLAS MUY PEQUEÑAS */
+    .form-container input {
+        max-width: 250px;
+        padding: 12px 15px;
+    }
+
+    .form-container button {
+        max-width: 250px;
+        padding: 12px;
+    }
+
+    .toggle-panel button {
+        max-width: 180px;
+        padding: 10px;
+    }
+
+    /* MÁS AJUSTES PARA TEXTOS EN PANTALLAS PEQUEÑAS */
+    .toggle-panel h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .toggle-panel p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+}
+
+.btn-inicio-login{
+  background: linear-gradient(3deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 15px 10px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px #0008;
+  transition: .3s ease;
+}
+
+.btn-inicio-login:hover{
+  background: #fff;
+  border: 2px solid #667eea;
+  color: #667eea;
 }
 
 /* Boton de ir al inicio */
