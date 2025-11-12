@@ -379,49 +379,6 @@
     </div>
   </footer>
 
-  <script>
-  // === MENÚ HAMBURGUESA RESPONSIVE ===
-  document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const navLinks = document.getElementById('nav-links');
-      
-      if (menuToggle && navLinks) {
-          menuToggle.addEventListener('click', function() {
-              navLinks.classList.toggle('active');
-              // Cambiar ícono
-              const icon = this.querySelector('i');
-              if (navLinks.classList.contains('active')) {
-                  icon.classList.remove('fa-bars');
-                  icon.classList.add('fa-times');
-              } else {
-                  icon.classList.remove('fa-times');
-                  icon.classList.add('fa-bars');
-              }
-          });
-          
-          // Cerrar menú al hacer clic en un enlace
-          const links = navLinks.querySelectorAll('a');
-          links.forEach(link => {
-              link.addEventListener('click', function() {
-                  navLinks.classList.remove('active');
-                  const icon = menuToggle.querySelector('i');
-                  icon.classList.remove('fa-times');
-                  icon.classList.add('fa-bars');
-              });
-          });
-          
-          // Cerrar menú al redimensionar la ventana
-          window.addEventListener('resize', function() {
-              if (window.innerWidth > 900) {
-                  navLinks.classList.remove('active');
-                  const icon = menuToggle.querySelector('i');
-                  icon.classList.remove('fa-times');
-                  icon.classList.add('fa-bars');
-              }
-          });
-      }
-  });
-  </script>
   <script src="/frontend/script.js"></script>
   <script src="/frontend/script-ofertas.js"></script>
 </body>
