@@ -1,4 +1,4 @@
-# 🏫 Librería Santo Tomás
+# 📚 Librería Santo Tomás
 
 Proyecto web desarrollado para la **Librería Santo Tomás**, que ofrece productos escolares, de oficina y novedades.  
 El sitio cuenta con sistema de registro, login, carrito de compras y administración básica de usuarios.
