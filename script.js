@@ -362,28 +362,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* === CONTROL DE USUARIO Y MENÚ "MI CUENTA" === */
-  const userMenu = document.getElementById("userMenu");
-  const userName = document.getElementById("userName");
-  const loginIcon = document.getElementById("loginIcon");
-  const logoutBtn = document.getElementById("logoutBtn");
+const userMenu = document.getElementById("userMenu");
+const userName = document.getElementById("userName");
+const loginIcon = document.getElementById("loginIcon");
+const logoutBtn = document.getElementById("logoutBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
-  let usuario = null;
+let usuario = null;
 
-  // Intentar obtener usuario válido desde localStorage
-  try {
-    const raw = localStorage.getItem("usuario");
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (data && data.nombre && data.email) usuario = data;
-      else localStorage.removeItem("usuario");
+// Intentar obtener usuario válido desde localStorage
+try {
+  const raw = localStorage.getItem("usuario");
+  if (raw) {
+    const data = JSON.parse(raw);
+    if (data && data.nombre && data.email) {
+      usuario = data;
+    } else {
+      localStorage.removeItem("usuario");
     }
-  } catch {
-    localStorage.removeItem("usuario");
   }
+} catch {
+  localStorage.removeItem("usuario");
+}
 
-  // Mostrar u ocultar el icono y el menú según haya sesión
-  if (usuario) {
-  if (userName) userName.textContent = `Hola, ${usuario.nombre}`;
+// Mostrar u ocultar el icono y el menú según haya sesión
+if (usuario) {
+  if (userName) userName.textContent = `Hola, ${usuario.nombre.split(' ')[0]}`; // Solo primer nombre
   if (userMenu) userMenu.style.display = "flex";
   if (loginIcon) loginIcon.style.display = "none";
 } else {
@@ -391,32 +395,34 @@ document.addEventListener("DOMContentLoaded", () => {
   if (loginIcon) loginIcon.style.display = "inline-flex";
 }
 
-
-  // Abrir/cerrar menú desplegable
-  const dropdown = document.getElementById("dropdownMenu");
-  const userInfo = userMenu?.querySelector(".user-info");
-
+// Abrir/cerrar menú desplegable
+if (userMenu) {
+  const userInfo = userMenu.querySelector(".user-info");
+  
   if (userInfo) {
     userInfo.addEventListener("click", (e) => {
       e.stopPropagation();
-      dropdown.classList.toggle("active");
+      userMenu.classList.toggle("active");
     });
   }
 
-  document.addEventListener("click", () => {
-    if (dropdown) dropdown.classList.remove("active");
+  // Cerrar menú al hacer click fuera
+  document.addEventListener("click", (e) => {
+    if (!userMenu.contains(e.target)) {
+      userMenu.classList.remove("active");
+    }
   });
+}
 
-  // Cerrar sesión
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      localStorage.removeItem("usuario");
-      if (userMenu) userMenu.style.display = "none";
-      if (loginIcon) loginIcon.style.display = "inline-flex";
-      window.location.href = "login.html";
-    });
-  }
+// Cerrar sesión
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  });
+}
 
   // === CARRITO - INICIALIZACIÓN ===
   actualizarContadorCarrito();

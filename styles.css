@@ -2040,7 +2040,7 @@ th {
 
 .producto-card img {
   width: 70%;
-  height: 180px;
+  height: 300px;
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 15px;
@@ -2986,33 +2986,221 @@ th {
   }
 }
 
-/* === Header - usuario logueado (corregido) === */
-.user-menu .user-info {
-  color: #000; /* Negro para que se vea sobre el fondo blanco */
-  font-weight: 600;
+/* === USER MENU CORREGIDO - SIN DESBORDAMIENTO === */
+.user-menu {
+  position: relative;
+  display: none;
+  align-items: center;
   cursor: pointer;
+}
+
+.user-info {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  color: #000;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  border: 2px solid transparent;
 }
 
-.user-menu .user-info:hover {
-  color: #f50097; /* Rosa al pasar el mouse */
+.user-info:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #f50097;
+  border-color: rgba(245, 0, 151, 0.3);
 }
 
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #000;
+  transition: transform 0.3s ease;
+}
 
+.user-menu.active .arrow-down {
+  transform: rotate(180deg);
+}
 
-.dropdown-menu a {
-  color: #fff;
+/* DROPDOWN MENU - CORREGIDO SIN DESBORDAMIENTO */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 8px 0;
+  min-width: 180px;
+  max-width: 200px; /* Límite máximo para evitar desbordamiento */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  margin-top: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Importante: evita que el contenido se salga */
+}
+
+.user-menu.active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  margin: 0;
+  transition: background 0.2s ease;
+  border: none;
+}
+
+.dropdown-menu li:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu li:hover {
+  background: rgba(245, 0, 151, 0.08);
+}
+
+.dropdown-menu li a {
+  color: #333;
   text-decoration: none;
-  padding: 10px;
-  transition: background 0.2s;
+  display: block;
+  padding: 10px 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.dropdown-menu a:hover {
-  background: #444;
+.dropdown-menu li a:hover {
+  color: #f50097;
+  background: rgba(245, 0, 151, 0.05);
+  padding-left: 20px;
 }
 
+/* BOTÓN CERRAR SESIÓN ESPECÍFICO */
+#logoutBtn {
+  margin: 0;
+  border: none;
+  background: none;
+  width: 100%;
+}
+
+#logoutBtn a {
+  color: #e74c3c !important;
+  background: none !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+#logoutBtn:hover {
+  background: #e74c3c !important;
+}
+
+#logoutBtn:hover a {
+  color: #ffffff !important;
+  background: #e74c3c !important;
+}
+
+/* Asegurar que el dropdown no se salga de la pantalla en móviles */
+@media (max-width: 900px) {
+  .user-menu {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .user-info {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    width: auto;
+    margin: 0 auto;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    width: 90%;
+    max-width: 250px;
+    margin: 10px auto 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-menu.active .dropdown-menu {
+    display: block;
+    transform: none;
+  }
+  
+  .top-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .logo-nav {
+    order: 1;
+  }
+  
+  .icon-container {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .user-info {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+  
+  .dropdown-menu {
+    min-width: 160px;
+    max-width: 180px;
+  }
+  
+  .dropdown-menu li a {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Asegurar que el icon container tenga el espacio correcto */
+.icon-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Prevenir desbordamiento horizontal en pantallas pequeñas */
+@media (max-width: 480px) {
+  .icon-container {
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .dropdown-menu {
+    width: 95%;
+    max-width: none;
+  }
+}
 /* === Página "Mi Cuenta" === */
 .cuenta-container {
   max-width: 600px;
