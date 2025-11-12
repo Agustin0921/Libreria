@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin | Librería Escolar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header-simple">
+    <h1>🧾 Panel de Administración</h1>
+    <nav>
+      <a href="productos.html">Volver a tienda</a>
+    </nav>
+  </header>
+
+  <main class="admin-main">
+    <!-- Formulario para agregar o editar -->
+    <section class="form-admin">
+      <h2>Agregar / Editar Producto</h2>
+      <form id="formProducto">
+        <input type="hidden" id="productoId">
+        <input type="text" id="nombre" placeholder="Nombre del producto" required>
+        <input type="text" id="categoria" placeholder="Categoría" required>
+        <input type="number" id="precio" placeholder="Precio" required>
+        <input type="number" id="stock" placeholder="Stock" required>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+    </section>
+
+    <!-- Tabla de productos -->
+    <section class="tabla-admin">
+      <h2>Lista de productos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaProductos"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Librería Escolar</p>
+  </footer>
+
+  <script>
+    const tabla = document.getElementById("tablaProductos");
+    const form = document.getElementById("formProducto");
+
+    async function cargarProductos() {
+      const res = await fetch("http://localhost:8000/productos");
+      const productos = await res.json();
+      tabla.innerHTML = productos.map(p => `
+        <tr>
+          <td>${p.id}</td>
+          <td>${p.nombre}</td>
+          <td>${p.categoria}</td>
+          <td>$${p.precio}</td>
+          <td>${p.stock}</td>
+          <td>
+            <button class="btn-edit" onclick="editar(${p.id}, '${p.nombre}', '${p.categoria}', ${p.precio}, ${p.stock})">Editar</button>
+            <button class="btn-delete" onclick="eliminar(${p.id})">Eliminar</button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    async function eliminar(id) {
+      if (!confirm("¿Eliminar producto?")) return;
+      await fetch(`http://localhost:8000/productos/${id}`, { method: "DELETE" });
+      cargarProductos();
+    }
+
+    function editar(id, nombre, categoria, precio, stock) {
+      document.getElementById("productoId").value = id;
+      document.getElementById("nombre").value = nombre;
+      document.getElementById("categoria").value = categoria;
+      document.getElementById("precio").value = precio;
+      document.getElementById("stock").value = stock;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("productoId").value;
+      const nombre = document.getElementById("nombre").value;
+      const categoria = document.getElementById("categoria").value;
+      const precio = document.getElementById("precio").value;
+      const stock = document.getElementById("stock").value;
+
+      if (id) {
+        await fetch(`http://localhost:8000/productos/${id}?nombre=${nombre}&categoria=${categoria}&precio=${precio}&stock=${stock}`, { method: "PUT" });
+      } else {
+        await fetch(`http://localhost:8000/productos?nombre=${nombre}&categoria=${categoria}&precio=${precio}&stock=${stock}`, { method: "POST" });
+      }
+
+      form.reset();
+      document.getElementById("productoId").value = "";
+      cargarProductos();
+    });
+
+    cargarProductos();
+  </script>
+</body>
+</html>

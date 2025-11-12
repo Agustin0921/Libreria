@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cuenta - Librería Santo Tomás</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo-nav">
+      <img src="/frontend/img/logodel-nav.png" alt="Logo Librería Santo Tomás">
+    </a>
+  </header>
+
+  <main class="cuenta-container">
+    <h1>Mi Cuenta</h1>
+    <div class="cuenta-card">
+      <p><strong>Nombre:</strong> <span id="cuenta-nombre"></span></p>
+      <p><strong>Email:</strong> <span id="cuenta-email"></span></p>
+    </div>
+    <button id="cerrarSesion" class="btn">Cerrar Sesión</button>
+  </main>
+
+  <script>
+    // Obtener usuario desde localStorage
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const nombreSpan = document.getElementById("cuenta-nombre");
+    const emailSpan = document.getElementById("cuenta-email");
+
+    if (usuario) {
+      // Mostrar datos en pantalla
+      nombreSpan.textContent = usuario.nombre;
+      emailSpan.textContent = usuario.email;
+    } else {
+      // Redirigir si no hay sesión
+      window.location.href = "login.html";
+    }
+
+    // Botón cerrar sesión
+    document.getElementById("cerrarSesion").addEventListener("click", () => {
+      localStorage.removeItem("usuario");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+/* ESTILOS ESPECÍFICOS PARA PÁGINA DE CONTACTO */
+
+.pagina-contacto {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}
+
+.encabezado-contacto {
+    background: white !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navegacion-contacto {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+/* HERO SECTION CONTACTO */
+.seccion-hero-contacto {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 0;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.seccion-hero-contacto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
+}
+
+.contenido-hero-contacto {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.titulo-hero-contacto {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
+.subtitulo-hero-contacto {
+    font-size: 1.3rem;
+    opacity: 0.9;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor-principal-contacto {
+    padding: 0;
+}
+
+/* INFORMACIÓN DE CONTACTO */
+.seccion-info-contacto {
+    padding: 60px 0;
+    background: white;
+}
+
+.grid-info-contacto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tarjeta-info-contacto {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #f1f3f4;
+}
+
+.tarjeta-info-contacto:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.icono-info-contacto {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 2rem;
+}
+
+.tarjeta-info-contacto h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.tarjeta-info-contacto p {
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.horario-contacto {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* FORMULARIO Y MAPA */
+.seccion-formulario-mapa {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.grid-formulario-mapa {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* FORMULARIO */
+.formulario-contacto-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.titulo-seccion-contacto {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+.formulario-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo-formulario label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.grupo-formulario input,
+.grupo-formulario select,
+.grupo-formulario textarea {
+    padding: 15px 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus,
+.grupo-formulario textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.grupo-formulario textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.mensaje-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+.grupo-formulario.error input,
+.grupo-formulario.error select,
+.grupo-formulario.error textarea {
+    border-color: #e74c3c;
+}
+
+/* CHECKBOX */
+.checkbox-grupo {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-grupo input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.checkbox-grupo label {
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* BOTÓN ENVIAR */
+.boton-enviar-contacto {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.boton-enviar-contacto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.boton-enviar-contacto:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.spinner-carga {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+.boton-enviar-contacto.cargando .texto-boton {
+    opacity: 0;
+}
+
+.boton-enviar-contacto.cargando .spinner-carga {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* MAPA E INFORMACIÓN */
+.mapa-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.mapa-contacto {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 300px;
+}
+
+.mapa-placeholder {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #6c757d;
+    text-align: center;
+    padding: 40px;
+}
+
+.mapa-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #667eea;
+}
+
+.mapa-placeholder h3 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.mapa-placeholder p {
+    margin-bottom: 20px;
+}
+
+.boton-ver-mapa {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.boton-ver-mapa:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+}
+
+.info-adicional-contacto {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.info-adicional-contacto h3 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.horarios-lista {
+    margin-bottom: 30px;
+}
+
+.horario-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.horario-item:last-child {
+    border-bottom: none;
+}
+
+.redes-sociales-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.red-social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.red-social-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateX(5px);
+}
+
+/* PREGUNTAS FRECUENTES */
+.seccion-faq-contacto {
+    padding: 60px 0;
+    background: white;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.faq-pregunta {
+    padding: 25px 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    transition: background 0.3s ease;
+}
+
+.faq-pregunta:hover {
+    background: #e9ecef;
+}
+
+.faq-pregunta h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.faq-pregunta i {
+    transition: transform 0.3s ease;
+    color: #667eea;
+}
+
+.faq-item.activo .faq-pregunta i {
+    transform: rotate(180deg);
+}
+
+.faq-respuesta {
+    padding: 0 30px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.activo .faq-respuesta {
+    padding: 0 30px 25px;
+    max-height: 500px;
+}
+
+.faq-respuesta p {
+    margin: 0;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* NOTIFICACIONES */
+.notificacion-exito {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(39, 174, 96, 0.3);
+    z-index: 10000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 400px;
+}
+
+.notificacion-exito.mostrar {
+    transform: translateX(0);
+}
+
+.notificacion-exito .contenido-notificacion {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notificacion-exito i {
+    font-size: 1.5rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 968px) {
+    .grid-formulario-mapa {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .mapa-contacto {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .titulo-hero-contacto {
+        font-size: 2.5rem;
+    }
+    
+    .subtitulo-hero-contacto {
+        font-size: 1.1rem;
+    }
+    
+    .grid-info-contacto {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .tarjeta-info-contacto {
+        padding: 30px 20px;
+    }
+    
+    .formulario-contacto-container {
+        padding: 30px 25px;
+    }
+    
+    .faq-pregunta {
+        padding: 20px 25px;
+    }
+    
+    .faq-respuesta {
+        padding: 0 25px;
+    }
+    
+    .faq-item.activo .faq-respuesta {
+        padding: 0 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-info-contacto {
+        grid-template-columns: 1fr;
+    }
+    
+    .formulario-contacto-container {
+        padding: 25px 20px;
+    }
+    
+    .grupo-formulario input,
+    .grupo-formulario select,
+    .grupo-formulario textarea {
+        padding: 12px 15px;
+    }
+    
+    .boton-enviar-contacto {
+        padding: 15px 30px;
+    }
+}
+
+/* ============================================================
+   🔧 CORRECCIÓN FINAL NAVBAR - CONTACTO
+   Evita conflictos con ofertas.css u otros estilos globales
+============================================================ */
+
+.pagina-contacto .menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #fff !important;
+    background: none;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001 !important;
+}
+
+/* Mostrar el ícono hamburguesa solo en móviles */
+@media (max-width: 900px) {
+    .pagina-contacto .menu-toggle {
+        display: block !important;
+    }
+
+    .pagina-contacto .navbar {
+        position: relative;
+        padding: 15px 0;
+        min-height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        z-index: 100;
+    }
+
+    /* --- Menú desplegable debajo del header --- */
+    .pagina-contacto .nav_links {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0;
+        width: 100%;
+        height: auto !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        padding: 10px 0;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999 !important;
+    }
+
+    .pagina-contacto .nav_links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .pagina-contacto .nav_links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .pagina-contacto .nav_links a {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        color: white !important;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .pagina-contacto .nav_links a:hover,
+    .pagina-contacto .nav_links a.active {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: none;
+    }
+
+    /* Evitar que el header tape el contenido */
+    .pagina-contacto .header {
+        position: relative !important;
+        overflow: visible !important;
+        z-index: 100 !important;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .pagina-contacto .menu-toggle {
+        right: 15px;
+        font-size: 1.5rem;
+    }
+
+    .pagina-contacto .nav_links a {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}

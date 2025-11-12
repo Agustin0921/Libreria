@@ -1,0 +1,1201 @@
+ /* ESTILOS ESPECÍFICOS PARA PÁGINA DE OFERTAS - CLASES ÚNICAS */
+    body{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* === NAVBAR RESPONSIVE CORREGIDO === */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #000;
+  background: none;
+  border: none;
+  padding: 10px;
+}
+
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 20px;
+  }
+
+  .navbar {
+    position: relative;
+    padding: 20px 0;
+  }
+
+  .nav_links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #8cecf8;
+    flex-direction: column;
+    gap: 0;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .nav_links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav_links li {
+    width: 70%;
+    text-align: center;
+  }
+
+  .nav_links a {
+    display: block;
+    padding: 12px 20px;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .nav_links a:hover,
+  .nav_links a.active {
+    background-color: #f50097;
+    color: #fff;
+  }
+
+  .hero-image img{
+    margin-top: 5px;
+    width: 50%;
+  }
+}
+
+/* === HEADER Y NAVEGACIÓN === */
+.header {
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 6%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+.logo-nav img {
+  width: 130px;
+  height: auto;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 45%;
+  background-color: #f1f1f1;
+  border-radius: 25px;
+  border: 2px solid rgb(151, 168, 67);
+  transition: all 0.3s ease;
+  overflow: hidden; /* 🔥 IMPORTANTE: Esto evita que el botón sobresalga */
+}
+
+.search-container:focus-within {
+  border-color: rgb(214, 238, 93);
+  box-shadow: 0 0 8px rgba(214, 238, 93, 0.5); /* Efecto de glow opcional */
+}
+
+.search-box {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  background: none;
+}
+
+.search-btn {
+  background-color: rgb(214, 238, 93);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border-left: 2px solid rgb(151, 168, 67); /* Línea divisoria opcional */
+}
+
+.search-btn:hover {
+  background-color: rgb(194, 224, 42);
+  transform: scale(1.05);
+}
+
+.fa-search {
+  color: rgb(70, 83, 4);
+}
+
+.icon-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.icon-link {
+  font-size: 1.4rem;
+  color: #000;
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.icon-link:hover {
+  color: #f50097;
+  transform: scale(1.1);
+}
+
+/* === NAVBAR PRINCIPAL === */
+.navbar {
+  width: 100%;
+  background: linear-gradient(3deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.932);
+  padding: 18px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav_links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav_links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.nav_links a:hover,
+.nav_links a.active {
+  background-color: #f1f500;
+  color: #764ba2;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #ffffff;
+}
+    /* Body específico para ofertas */
+    .pagina-ofertas {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+    }
+
+    /* Header específico para ofertas */
+    .encabezado-ofertas {
+      background: white !important;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navegacion-ofertas {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%) !important;
+    }
+
+    /* Hero section para ofertas */
+    .seccion-hero-ofertas {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+      padding: 100px 0;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seccion-hero-ofertas::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+      background-size: cover;
+    }
+
+    .contenido-hero-ofertas {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .titulo-hero-ofertas {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+    }
+
+    .subtitulo-hero-ofertas {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    /* Contador regresivo */
+    .contador-ofertas {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .item-contador {
+      background: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 10px;
+      min-width: 80px;
+      backdrop-filter: blur(10px);
+    }
+
+    .numero-contador {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .etiqueta-contador {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .boton-cta-ofertas {
+      background: white;
+      color: #ff6b6b;
+      text-decoration: none;
+      padding: 15px 40px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .boton-cta-ofertas:hover {
+      background: #ff6b6b;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Main container para ofertas */
+    .contenedor-principal-ofertas {
+      padding: 40px 0;
+    }
+
+    /* Filtros de ofertas */
+    .seccion-filtros-ofertas {
+      background: white;
+      padding: 30px 0;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .titulo-filtros-ofertas {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .contenedor-filtros-ofertas {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .boton-filtro-ofertas {
+      padding: 12px 25px;
+      border: 2px solid #ff6b6b;
+      background: white;
+      color: #ff6b6b;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .boton-filtro-ofertas.activo,
+    .boton-filtro-ofertas:hover {
+      background: #ff6b6b;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Títulos de sección */
+    .titulo-seccion-ofertas {
+      text-align: center;
+      margin-bottom: 50px;
+      color: #2c3e50;
+      font-size: 2.5rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+    }
+
+    /* Ofertas destacadas */
+    .seccion-destacadas-ofertas {
+      padding: 60px 0;
+    }
+
+    .grid-destacadas-ofertas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tarjeta-oferta-destacada {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tarjeta-oferta-destacada:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .badge-oferta-destacada {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      z-index: 2;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    .contenedor-imagen-oferta-destacada {
+      position: relative;
+      overflow: hidden;
+      height: 250px;
+    }
+
+    .contenedor-imagen-oferta-destacada img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-oferta-destacada:hover .contenedor-imagen-oferta-destacada img {
+      transform: scale(1.1);
+    }
+
+    .overlay-oferta-destacada {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.8) 0%, rgba(231, 76, 60, 0.8) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tarjeta-oferta-destacada:hover .overlay-oferta-destacada {
+      opacity: 1;
+    }
+
+    .texto-overlay-destacada {
+      color: white;
+      text-align: center;
+    }
+
+    .contenido-oferta-destacada {
+      padding: 25px;
+    }
+
+    .contenido-oferta-destacada h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .precio-original-destacada {
+      text-decoration: line-through;
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .precio-oferta-destacada {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff6b6b;
+      margin-bottom: 20px;
+    }
+
+    .estadisticas-oferta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .info-stock, .info-vendidos {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .boton-oferta-destacada {
+      display: block;
+      background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 100%);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .boton-oferta-destacada:hover {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      transform: translateY(-2px);
+    }
+
+    /* Ofertas relámpago */
+    .seccion-relampago-ofertas {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 60px 0;
+      color: white;
+    }
+
+    .encabezado-relampago {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .temporizador-relampago {
+      background: rgba(255,255,255,0.2);
+      padding: 15px 25px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .etiqueta-temporizador {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-right: 10px;
+    }
+
+    .temporizador {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .grid-relampago-ofertas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tarjeta-oferta-relampago {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .tarjeta-oferta-relampago:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .badge-relampago {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      z-index: 2;
+    }
+
+    .contenedor-imagen-relampago {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+    }
+
+    .contenedor-imagen-relampago img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay-relampago {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tarjeta-oferta-relampago:hover .overlay-relampago {
+      opacity: 1;
+    }
+
+    .texto-overlay-relampago {
+      color: white;
+      text-align: center;
+    }
+
+    .contenido-oferta-relampago {
+      padding: 20px;
+    }
+
+    .contenido-oferta-relampago h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .precio-original-relampago {
+      text-decoration: line-through;
+      opacity: 0.7;
+      margin-bottom: 5px;
+    }
+
+    .precio-oferta-relampago {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .barra-progreso {
+      background: rgba(255,255,255,0.2);
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .relleno-progreso {
+      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .stock-relampago {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .boton-relampago {
+      display: block;
+      background: white;
+      color: #667eea;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .boton-relampago:hover {
+      background: #f8f9fa;
+      transform: translateY(-2px);
+    }
+
+    /* Sección todas las ofertas */
+    .seccion-todas-ofertas {
+      padding: 60px 0;
+    }
+
+    .paginacion-ofertas {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .boton-pagina {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .boton-pagina.activo {
+      background: #ff6b6b;
+      transform: scale(1.1);
+    }
+
+    .boton-pagina:hover {
+      background: #5a6fd8;
+    }
+
+    /* Newsletter ofertas */
+    .seccion-newsletter-ofertas {
+      background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .contenido-newsletter-ofertas {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contenido-newsletter-ofertas h2 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+
+    .contenido-newsletter-ofertas p {
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .formulario-newsletter-ofertas {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      gap: 15px;
+    }
+
+    .formulario-newsletter-ofertas input {
+      flex: 1;
+      padding: 18px 25px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .formulario-newsletter-ofertas button {
+      padding: 18px 35px;
+      background: #fff;
+      color: #0276b9;
+      border: 1px solid transparent;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s ease, border .4s ease;
+    }
+
+    .formulario-newsletter-ofertas button:hover {
+      background: #0276b9;
+      color: #fff;
+      border: 1px solid #ffffff;
+    }
+
+    .nota-newsletter {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* === FOOTER === */
+.footer {
+  background: #2c3e50;
+  color: white;
+  padding: 60px 0 0;
+}
+
+.footer-container {
+
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.footer-section h3 {
+  color: #3498db;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.footer-logo img {
+  background-color: #fff;
+  border-radius: 15px;
+  max-width: 150px;
+  margin-bottom: 15px;
+}
+
+.footer-logo p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background: #34495e;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.social-links a:hover {
+  background: #3498db;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #3498db;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.contact-info i {
+  color: #3498db;
+  width: 20px;
+}
+
+.footer-bottom {
+  background: #1a252f;
+  padding: 20px 0;
+  margin-top: 60px;
+}
+
+.footer-bottom-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #3498db;
+}
+
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contador-ofertas {
+        gap: 10px;
+      }
+      
+      .item-contador {
+        min-width: 60px;
+        padding: 10px;
+      }
+      
+      .numero-contador {
+        font-size: 1.5rem;
+      }
+      
+      .encabezado-relampago {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .contenedor-filtros-ofertas {
+        gap: 8px;
+      }
+      
+      .boton-filtro-ofertas {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
+      .formulario-newsletter-ofertas {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .titulo-hero-ofertas {
+        font-size: 2.5rem;
+      }
+      
+      .subtitulo-hero-ofertas {
+        font-size: 1.1rem;
+      }
+      
+      .contador-ofertas {
+        flex-wrap: wrap;
+      }
+      
+      .item-contador {
+        min-width: 70px;
+      }
+
+      .grid-destacadas-ofertas,
+      .grid-relampago-ofertas {
+        grid-template-columns: 1fr;
+      }
+    }
+
+@media (max-width: 468px){
+    
+    /* FOOTER */
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
+  }
+
+  .footer-logo img {
+    max-width: 120px;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .contact-info p {
+    justify-content: center;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* === CORRECCIONES ESPECÍFICAS PARA ESPACIADO Y CENTRADO === */
+
+/* Eliminar márgenes y paddings conflictivos */
+.contenedor-principal-ofertas {
+  padding: 0; /* Eliminar padding superior/inferior que causa espacios */
+}
+
+.seccion-destacadas-ofertas,
+.seccion-relampago-ofertas,
+.seccion-todas-ofertas {
+  padding: 40px 0; /* Reducir padding para menos espacio */
+}
+
+/* Corregir centrado en ofertas relámpago */
+.seccion-relampago-ofertas .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.encabezado-relampago {
+  display: flex;
+  justify-content: center; /* Centrar en lugar de space-between */
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+  text-align: center;
+}
+
+/* Corregir footer en móviles */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
+  }
+
+  .footer-logo img {
+    max-width: 120px;
+    margin: 0 auto 15px; /* Centrar logo */
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .contact-info p {
+    justify-content: center;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Eliminar scroll horizontal */
+  body {
+    overflow-x: hidden;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+}
+
+/* Ajustes adicionales para eliminar espacios no deseados */
+.seccion-filtros-ofertas {
+  margin-bottom: 20px; /* Reducir espacio debajo de filtros */
+}
+
+.seccion-newsletter-ofertas {
+  margin-top: 0; /* Eliminar margen superior */
+}
+
+/* Asegurar que todos los contenedores no excedan el ancho */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Corregir posibles problemas de grid */
+.grid-destacadas-ofertas,
+.grid-relampago-ofertas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Ajustes específicos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .grid-destacadas-ofertas,
+  .grid-relampago-ofertas {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .seccion-destacadas-ofertas,
+  .seccion-relampago-ofertas {
+    padding: 30px 0;
+  }
+}
+
+/* Asegurar que no haya desbordamiento horizontal */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* === CORRECCIONES MENÚ HAMBURGUESA === */
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: block !important;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .navbar {
+        position: relative;
+        padding: 15px 0;
+    }
+
+    .nav_links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        padding: 0;
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav_links.active {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav_links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav_links a {
+        display: block;
+        padding: 20px;
+        border-radius: 0;
+        width: 100%;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav_links a:hover,
+    .nav_links a.active {
+        background-color: rgba(255,255,255,0.2);
+        color: #fff;
+    }
+
+    /* Asegurar que el header no se desborde */
+    .header {
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .menu-toggle {
+        right: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .nav_links a {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+}

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos | Librería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="productos-body">
+  <!-- === LOADER CON LÍNEAS DE COLORES === -->
+  <div id="loader">
+    <div class="lineas">
+      <div class="linea linea1"></div>
+      <div class="linea linea2"></div>
+      <div class="linea linea3"></div>
+      <div class="linea linea4"></div>
+    </div>
+    <img src="/frontend/img/logodel-nav.png" alt="Logo" class="loader-logo">
+  </div>
+  
+  <script>
+    // Mostrar loader antes de cargar contenido
+    document.addEventListener("DOMContentLoaded", () => {
+      const loader = document.getElementById("loader");
+      loader.classList.add("activo");
+    
+      setTimeout(() => {
+        loader.classList.remove("activo");
+        loader.classList.add("oculto");
+      }, 1200); // 1.2 segundos de carga simulada
+    });
+  </script>
+  <header class="header header-product">
+    <!-- Fila superior -->
+    <div class="top-bar">
+      <div class="logo-nav">
+        <img src="img/logodel-nav.png" alt="Logo Librería Santo Tomás">
+      </div>
+
+      <div class="search-container">
+        <input type="text" placeholder="Buscar productos..." class="search-box">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+
+          
+      <div class="icon-container">
+        <!-- Ícono del carrito -->
+        <a href="carrito.html" class="icon-link" title="Carrito">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+      
+        <!-- Menú del usuario -->
+        <div class="user-menu" id="userMenu">
+          <div class="user-info">
+            <span id="userName">Usuario</span>
+            <i class="arrow-down"></i>
+          </div>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li><a href="micuenta.html">Mi cuenta</a></li>
+            <li><a href="#">Configuración</a></li>
+            <li id="logoutBtn"><a href="#">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      
+        <!-- Ícono de login -->
+        <a href="login.html" class="icon-link" id="loginIcon" title="Iniciar sesión">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </div>
+    
+  </header>
+  <!-- Fila inferior (Navbar principal) -->
+    <nav class="navbar">
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav_links" id="nav-links">
+        <li><a href="index.html" >Inicio</a></li>
+        <li><a href="productos.html" class="active">Productos</a></li>
+        <li><a href="novedades.html">Novedades</a></li>
+        <li><a href="ofertas.html">Ofertas</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+  <main class="productos-main">
+
+    <!-- SIDEBAR DE FILTROS -->
+    <aside class="filtro-sidebar">
+      <h3>Filtros</h3>
+
+      <div class="filtro-busqueda">
+        <label for="buscar">Buscar producto:</label>
+        <input type="text" id="buscar" placeholder="Ej: cuaderno...">
+      </div>
+
+      <div class="filtro-categoria">
+        <h4>Categorías</h4>
+        <ul class="lista-categorias">
+          <li><a href="#" data-cat="">Todas</a></li>
+          <li><a href="#" data-cat="cuadernos">Cuadernos</a></li>
+          <li><a href="#" data-cat="lapices">Lápices</a></li>
+          <li><a href="#" data-cat="mochilas">Mochilas</a></li>
+          <li><a href="#" data-cat="packs">Packs escolares</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- LISTADO DE PRODUCTOS -->
+    <section class="productos-container">
+      <div id="productos">
+        <div class="producto-card" data-id="1" data-nombre="Cuaderno Rivadavia" data-precio="2500" data-img="img/cuaderno.jpg" data-desc="Cuaderno tapa dura 80 hojas">
+          <img src="img/cuaderno.jpg" alt="Cuaderno Rivadavia">
+          <h3>Cuaderno Rivadavia</h3>
+          <p class="precio">$2500</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" min="1" value="1" class="cantidad-input">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+      
+        <div class="producto-card" data-id="2" data-nombre="Lápiz Faber Castell" data-precio="500" data-img="img/lapiz.jpg" data-desc="Lápiz negro HB2">
+          <img src="img/lapz-faber.png" alt="Lápiz Faber Castell">
+          <h3>Lápiz Faber Castell</h3>
+          <p class="precio">$500</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" min="1" value="1" class="cantidad-input">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+      
+        <div class="producto-card" data-id="3" data-nombre="Mochila Escolar" data-precio="15000" data-img="img/mochila.jpg" data-desc="Mochila con 2 compartimentos">
+          <img src="img/mochila.jpg" alt="Mochila Escolar">
+          <h3>Mochila Escolar</h3>
+          <p class="precio">$15000</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" min="1" value="1" class="cantidad-input">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+        <!-- === NUEVOS PRODUCTOS === -->
+        <div class="producto-card" 
+              data-id="8" 
+              data-nombre="Cartuchera Triple Compartimento" 
+              data-precio="4500" 
+              data-img="/frontend/img/cartuchera.jpg" 
+              data-desc="Cartuchera con tres compartimentos y cierre reforzado.">
+          <img src="/frontend/img/cartuchera.jpg" alt="Cartuchera">
+          <h3>Cartuchera Triple Compartimento</h3>
+          <p class="precio">$4500</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="9" 
+              data-nombre="Set de Marcadores Pastel" 
+              data-precio="2800" 
+              data-img="/frontend/img/marcadores.jpg" 
+              data-desc="Set de 6 marcadores punta fina tonos pastel.">
+          <img src="/frontend/img/marcadores.jpg" alt="Marcadores Pastel">
+          <h3>Set de Marcadores Pastel</h3>
+          <p class="precio">$2800</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="10" 
+              data-nombre="Resaltadores Fluorescentes" 
+              data-precio="2200" 
+              data-img="/frontend/img/resaltadores.jpg" 
+              data-desc="Pack de 5 resaltadores de colores vibrantes.">
+          <img src="/frontend/img/resaltadores.jpg" alt="Resaltadores">
+          <h3>Resaltadores Fluorescentes</h3>
+          <p class="precio">$2200</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="11" 
+              data-nombre="Tijera Escolar Antideslizante" 
+              data-precio="1600" 
+              data-img="/frontend/img/tijera.jpg" 
+              data-desc="Tijera con mango ergonómico ideal para niños.">
+          <img src="/frontend/img/tijera.jpg" alt="Tijera">
+          <h3>Tijera Escolar Antideslizante</h3>
+          <p class="precio">$1600</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="12" 
+              data-nombre="Corrector Líquido en Pluma" 
+              data-precio="1200" 
+              data-img="/frontend/img/corrector.jpg" 
+              data-desc="Corrector de punta fina para escritura precisa.">
+          <img src="/frontend/img/corrector.jpg" alt="Corrector">
+          <h3>Corrector Líquido en Pluma</h3>
+          <p class="precio">$1200</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="13" 
+              data-nombre="Regla de 30cm Transparente" 
+              data-precio="800" 
+              data-img="/frontend/img/regla.jpg" 
+              data-desc="Regla de plástico transparente con medidas precisas.">
+          <img src="/frontend/img/regla.jpg" alt="Regla">
+          <h3>Regla de 30cm Transparente</h3>
+          <p class="precio">$800</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="14" 
+              data-nombre="Cuaderno Universitario Lisa" 
+              data-precio="3200" 
+              data-img="/frontend/img/cuaderno3.jpg" 
+              data-desc="Cuaderno universitario 96 hojas lisa.">
+          <img src="/frontend/img/cuaderno3.jpg" alt="Cuaderno Universitario">
+          <h3>Cuaderno Universitario Lisa</h3>
+          <p class="precio">$3200</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="15" 
+              data-nombre="Mochila Deportiva Escolar" 
+              data-precio="18000" 
+              data-img="/frontend/img/mochila2.jpg" 
+              data-desc="Mochila con diseño deportivo y amplio espacio interior.">
+          <img src="/frontend/img/mochila2.jpg" alt="Mochila Deportiva">
+          <h3>Mochila Deportiva Escolar</h3>
+          <p class="precio">$18000</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="16" 
+              data-nombre="Pegamento en Barra 40g" 
+              data-precio="900" 
+              data-img="/frontend/img/pegamento.jpg" 
+              data-desc="Pegamento en barra ideal para trabajos escolares.">
+          <img src="/frontend/img/pegamento.jpg" alt="Pegamento">
+          <h3>Pegamento en Barra 40g</h3>
+          <p class="precio">$900</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="17" 
+              data-nombre="Compás Metálico Escolar" 
+              data-precio="2600" 
+              data-img="/frontend/img/compas.jpg" 
+              data-desc="Compás metálico resistente para trazos precisos.">
+          <img src="/frontend/img/compas.jpg" alt="Compás">
+          <h3>Compás Metálico Escolar</h3>
+          <p class="precio">$2600</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="18" 
+              data-nombre="Pack de Hojas A4" 
+              data-precio="7000" 
+              data-img="/frontend/img/hojas.jpg" 
+              data-desc="Resma A4 de 500 hojas blancas 80 gramos.">
+          <img src="/frontend/img/hojas.jpg" alt="Resma A4">
+          <h3>Pack de Hojas A4</h3>
+          <p class="precio">$7000</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="19" 
+              data-nombre="Lapicera Gel Azul" 
+              data-precio="1000" 
+              data-img="/frontend/img/lapicera.jpg" 
+              data-desc="Lapicera de gel azul con tinta suave y duradera.">
+          <img src="/frontend/img/lapicera.jpg" alt="Lapicera Gel">
+          <h3>Lapicera Gel Azul</h3>
+          <p class="precio">$1000</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="20" 
+              data-nombre="Goma de Borrar Suave" 
+              data-precio="500" 
+              data-img="/frontend/img/goma.jpg" 
+              data-desc="Goma de borrar libre de PVC, no mancha el papel.">
+          <img src="/frontend/img/goma.jpg" alt="Goma de Borrar">
+          <h3>Goma de Borrar Suave</h3>
+          <p class="precio">$500</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="21" 
+              data-nombre="Set de Reglas Escolar" 
+              data-precio="1900" 
+              data-img="/frontend/img/reglaset.jpg" 
+              data-desc="Set con regla, escuadra y transportador plástico.">
+          <img src="/frontend/img/reglaset.jpg" alt="Set de Reglas">
+          <h3>Set de Reglas Escolar</h3>
+          <p class="precio">$1900</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+        <div class="producto-card" 
+              data-id="22" 
+              data-nombre="Bolígrafo Negro Bic" 
+              data-precio="900" 
+              data-img="/frontend/img/boligrafo2.jpg" 
+              data-desc="Bolígrafo Bic negro punta media, trazo suave.">
+          <img src="/frontend/img/boligrafo2.jpg" alt="Bolígrafo Negro">
+          <h3>Bolígrafo Negro Bic</h3>
+          <p class="precio">$900</p>
+          <div class="cantidad-container">
+            <button class="cantidad-btn menos">−</button>
+            <input type="number" class="cantidad-input" value="1" min="1">
+            <button class="cantidad-btn mas">+</button>
+          </div>
+          <button class="btn-product agregar">Agregar al carrito</button>
+        </div>
+
+      
+        <!-- Podés seguir agregando más productos igual -->
+      </div>
+
+
+      <!-- PAGINACIÓN -->
+      <div class="paginacion" id="paginacion"></div>
+    </section>
+  </main>
+
+  <!-- MODAL DE DETALLE DE PRODUCTO -->
+  <div id="modal-producto" class="modal">
+    <div class="modal-content">
+      <span class="cerrar">&times;</span>
+      <img id="modal-img" src="" alt="">
+      <h2 id="modal-nombre"></h2>
+      <p id="modal-descripcion"></p>
+      <p class="precio-modal" id="modal-precio"></p>
+      <button id="agregar-carrito" class="btn-product">Añadir al carrito</button>
+    </div>
+  </div>
+
+
+
+  <!-- ÍCONO FLOTANTE DEL CARRITO -->
+  <div class="carrito-flotante" onclick="window.location.href='carrito.html'">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="carrito-cantidad" id="cantidad-carrito">0</span>
+  </div>
+
+  <script src="script.js"></script>
+
+  <footer class="footer">
+    <p>© 2025 Librería Escolar - Todos los derechos reservados</p>
+  </footer>
+</body>
+</html>

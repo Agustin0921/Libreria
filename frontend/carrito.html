@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras | Librería Santo Tomás</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- === LOADER CON LÍNEAS DE COLORES === -->
+  <div id="loader">
+    <div class="lineas">
+      <div class="linea linea1"></div>
+      <div class="linea linea2"></div>
+      <div class="linea linea3"></div>
+      <div class="linea linea4"></div>
+    </div>
+    <img src="/frontend/img/logodel-nav.png" alt="Logo" class="loader-logo">
+  </div>
+
+  <script>
+    // Mostrar loader antes de cargar contenido
+    document.addEventListener("DOMContentLoaded", () => {
+      const loader = document.getElementById("loader");
+      loader.classList.add("activo");
+    
+      setTimeout(() => {
+        loader.classList.remove("activo");
+        loader.classList.add("oculto");
+      }, 1200);
+    });
+  </script>
+
+  <header class="header">
+    <!-- Fila superior -->
+    <div class="top-bar">
+      <div class="logo-nav">
+        <img src="/frontend/img/logodel-nav.png" alt="Logo Librería Santo Tomás">
+      </div>
+
+      <div class="search-container">
+        <input type="text" placeholder="Buscar productos..." class="search-box">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+
+      <div class="icon-container">
+        <!-- Ícono del carrito activo -->
+        <a href="carrito.html" class="icon-link active" title="Carrito">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+      
+        <!-- Menú del usuario -->
+        <div class="user-menu" id="userMenu">
+          <div class="user-info">
+            <span id="userName">Usuario</span>
+            <i class="arrow-down"></i>
+          </div>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li><a href="micuenta.html">Mi cuenta</a></li>
+            <li><a href="#">Configuración</a></li>
+            <li id="logoutBtn"><a href="#">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      
+        <!-- Ícono de login -->
+        <a href="login.html" class="icon-link" id="loginIcon" title="Iniciar sesión">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fila inferior (Navbar principal) -->
+  <nav class="navbar">
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav_links" id="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="novedades.html">Novedades</a></li>
+      <li><a href="#">Ofertas</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <main class="carrito-main">
+    <!-- Botón para volver al inicio -->
+    <div class="carrito-header">
+      <a href="index.html" class="btn-inicio">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+      </a>
+      <h2>Tu Carrito de Compras</h2>
+    </div>
+
+    <div id="carrito-contenedor" class="carrito-contenedor">
+      <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+    </div>
+
+    <div class="carrito-vacio" id="carrito-vacio" style="display: none;">
+      <div class="carrito-vacio-content">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Tu carrito está vacío</h3>
+        <p>¡Descubre nuestros productos y encuentra lo que necesitas!</p>
+        <a href="productos.html" class="btn-comprar">Ir a Productos</a>
+      </div>
+    </div>
+
+    <div class="carrito-resumen" id="carrito-resumen">
+      <div class="resumen-detalles">
+        <div class="resumen-item">
+          <span>Subtotal:</span>
+          <span id="subtotal">$0</span>
+        </div>
+        <div class="resumen-item">
+          <span>Envío:</span>
+          <span id="envio">Gratis</span>
+        </div>
+        <div class="resumen-total">
+          <span>Total:</span>
+          <span id="carrito-total">$0</span>
+        </div>
+      </div>
+      
+      <div class="botones-carrito">
+        <button id="vaciar-carrito" class="btn vaciar">
+          <i class="fas fa-trash"></i> Vaciar Carrito
+        </button>
+        <button id="seguir-comprando" class="btn seguir">
+          <i class="fas fa-shopping-bag"></i> Seguir Comprando
+        </button>
+        <button id="comprar" class="btn comprar">
+          <i class="fas fa-credit-card"></i> Finalizar Compra
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER PROFESIONAL -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="/frontend/img/logodel-nav.png" alt="Librería Santo Tomás">
+          <p>Tu librería de confianza para todos tus necesidades escolares y de oficina.</p>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="novedades.html">Novedades</a></li>
+          <li><a href="#">Ofertas</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Categorías</h3>
+        <ul>
+          <li><a href="#">Cuadernos</a></li>
+          <li><a href="#">Mochilas</a></li>
+          <li><a href="#">Útiles Escolares</a></li>
+          <li><a href="#">Arte y Dibujo</a></li>
+          <li><a href="#">Oficina</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <div class="contact-info">
+          <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</p>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> info@libreriasantotomas.com</p>
+          <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-18:00</p>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Métodos de Pago</h3>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-amex"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <h3>Envíos a</h3>
+        <div class="shipping-info">
+          <span>Toda la ciudad</span>
+          <span>Envío gratis desde $15.000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p>&copy; 2025 Librería Santo Tomás. Todos los derechos reservados.</p>
+        <div class="footer-links">
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Política de Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ÍCONO FLOTANTE DEL CARRITO -->
+  <div class="carrito-flotante" onclick="window.location.href='carrito.html'">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="carrito-cantidad" id="cantidad-carrito">0</span>
+  </div>
+
+  <script src="/frontend/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://cdn.boxicons.com/3.0.3/fonts/basic/boxicons.min.css" rel="stylesheet">
+  <title>Login | Librería Santo Tomás</title>
+</head>
+<body class="body-login">
+  <!-- Loader -->
+  <div class="loader-overlay" id="loader">
+    <img src="/frontend/img/logodel-nav.png" alt="Logo Librería Santo Tomás" class="loader-logo">
+  </div>
+  <div class="logo-container">
+    <img src="/frontend/img/logo-lib.png" alt="Logo Librería" class="logo" />
+  </div>
+  <div class="container" id="container">
+    <!-- === LOGIN === -->
+    <div class="form-box login">
+      <form id="login-form">
+        <h1>Iniciar Sesión</h1>
+
+        <div class="input-box">
+          <input type="email" id="login-email" placeholder="Email" required />
+          <i class="bx bxs-user bx-flip-horizontal bx-bounce"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="password" id="login-password" placeholder="Password" required />
+          <i class="bx bxs-lock bx-bounce"></i>
+        </div>
+
+        <div class="forgot-link">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn">Iniciar Sesión</button>
+
+        <p>O inicia sesión con</p>
+        <div class="social-icons">
+          <a href="https://facebook.com/tupagina" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://instagram.com/tupagina" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://twitter.com/tupagina" target="_blank" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://api.whatsapp.com/send?phone=TU_NUMERO" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <!-- === REGISTER === -->
+    <div class="form-box register">
+      <form id="register-form">
+        <h1>Registrate</h1>
+
+        <div class="input-box">
+          <input type="text" id="register-nombre" placeholder="Nombre completo" required />
+          <i class="bx bxs-user bx-flip-horizontal bx-bounce"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="email" id="register-email" placeholder="Email" required />
+          <i class="bx bxs-envelope bx-bounce"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="password" id="register-password" placeholder="Password" required />
+          <i class="bx bxs-lock bx-bounce"></i>
+        </div>
+
+        <button type="submit" class="btn">Registrarse</button>
+
+        <p>O registrate con</p>
+        <div class="social-icons">
+          <a href="https://facebook.com/tupagina" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://instagram.com/tupagina" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://twitter.com/tupagina" target="_blank" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://api.whatsapp.com/send?phone=TU_NUMERO" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <!-- === PANELES DE TRANSICIÓN === -->
+    <div class="toggle-box">
+      <div class="toggle-panel toggle-left">
+        <h1>¡Hola, Bienvenido!</h1>
+        <p>¿No tenés cuenta?</p>
+        <button class="btn register-btn">Registrarse</button>
+      </div>
+
+      <div class="toggle-panel toggle-right">
+        <h1>¡Bienvenido de nuevo!</h1>
+        <p>¿Ya tenés una cuenta?</p>
+        <button class="btn login-btn">Iniciar Sesión</button>
+      </div>
+    </div>
+  </div>
+  <a href="index.html" class="btn-inicio">Volver al Inicio</a>
+
+  <script src="script.js"></script>
+</body>
+</html>

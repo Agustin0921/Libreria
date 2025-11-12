@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Librería Escolar</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="frontend/img/logo-lb.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- === LOADER CON LÍNEAS DE COLORES === -->
+  <div id="loader">
+    <div class="lineas">
+      <div class="linea linea1"></div>
+      <div class="linea linea2"></div>
+      <div class="linea linea3"></div>
+      <div class="linea linea4"></div>
+    </div>
+    <img src="/frontend/img/logodel-nav.png" alt="Logo" class="loader-logo">
+  </div>
+
+  <script>
+    // Mostrar loader antes de cargar contenido
+    document.addEventListener("DOMContentLoaded", () => {
+      const loader = document.getElementById("loader");
+      loader.classList.add("activo");
+
+      setTimeout(() => {
+        loader.classList.remove("activo");
+        loader.classList.add("oculto");
+      }, 1200); // 1.2 segundos de carga simulada
+    });
+  </script>
+
+  <header class="header">
+    <!-- Fila superior -->
+    <div class="top-bar">
+      <div class="logo-nav">
+        <img src="/frontend/img/logodel-nav.png" alt="Logo Librería Santo Tomás">
+      </div>
+
+      <div class="search-container">
+        <input type="text" placeholder="Buscar productos..." class="search-box">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+
+    <div class="icon-container">
+      <!-- Ícono del carrito -->
+      <a href="carrito.html" class="icon-link" title="Carrito"><i class="fas fa-shopping-cart"></i></a>
+
+      <!-- Menú del usuario -->
+      <div class="user-menu" id="userMenu">
+        <div class="user-info">
+          <span id="userName">Usuario</span>
+          <i class="arrow-down"></i>
+        </div>
+        <ul class="dropdown-menu" id="dropdownMenu">
+          <li><a href="micuenta.html">Mi cuenta</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li id="logoutBtn"><a href="#">Cerrar sesión</a></li>
+        </ul>
+      </div>
+    
+      <!-- Ícono de login (si no hay usuario) -->
+      <a href="login.html" class="icon-link" id="loginIcon" title="Iniciar sesión">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
+  </header>
+  <!-- Fila inferior (Navbar principal) -->
+    <nav class="navbar">
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav_links" id="nav-links">
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="novedades.html">Novedades</a></li>
+        <li><a href="ofertas.html">Ofertas</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>LIBRERÍA SANTO TOMÁS</h1>
+      <p>Tu lugar ideal para encontrar productos de alta calidad.</p>
+      <a href="/frontend/productos.html" class="cta-button">Descubrir productos</a>
+    </div>
+    <div class="divider"></div>
+    <div class="hero-image">
+      <img src="/frontend/img/logo-lib.png" alt="Imagen hero">
+    </div>
+  </section>
+
+  <main class="container-main">
+    <!-- SECCIÓN DE BENEFICIOS -->
+    <section class="beneficios">
+      <div class="">
+        <h2>¿Por qué elegirnos?</h2>
+        <div class="beneficios-grid">
+          <div class="beneficio-item">
+            <i class="fas fa-shipping-fast"></i>
+            <h3>Envío Rápido</h3>
+            <p>Recibe tus productos en 24-48 horas</p>
+          </div>
+          <div class="beneficio-item">
+            <i class="fas fa-award"></i>
+            <h3>Calidad Garantizada</h3>
+            <p>Productos de las mejores marcas</p>
+          </div>
+          <div class="beneficio-item">
+            <i class="fas fa-hand-holding-usd"></i>
+            <h3>Precios Competitivos</h3>
+            <p>Los mejores precios del mercado</p>
+          </div>
+          <div class="beneficio-item">
+            <i class="fas fa-headset"></i>
+            <h3>Soporte 24/7</h3>
+            <p>Atención personalizada cuando la necesites</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN NUESTROS TRABAJOS -->
+    <section class="trabajos">
+      <h2>Nuestros Trabajos y Servicios</h2>
+      <p class="trabajos-subtitle">Más que una librería, tu partner creativo</p>
+      
+      <div class="trabajos-grid">
+        <!-- Impresiones Profesionales -->
+        <div class="trabajo-card">
+          <div class="trabajo-img-container">
+            <img src="img/impresion-img.jpg" alt="Impresiones Profesionales">
+            <div class="trabajo-overlay">
+              <div class="trabajo-overlay-text">
+                <h4>Impresiones Profesionales</h4>
+                <p>Alta calidad en todos tus proyectos</p>
+              </div>
+            </div>
+          </div>
+          <div class="trabajo-content">
+            <h3>🖨️ Impresiones</h3>
+            <p>Color y blanco/negro en todos los formatos</p>
+            <ul>
+              <li>Flyers y folletos</li>
+              <li>Posters y afiches</li>
+              <li>Fotos y documentos</li>
+              <li>Papeles especiales</li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- Diseño Gráfico -->
+        <div class="trabajo-card">
+          <div class="trabajo-img-container">
+            <img src="img/diseños.jpg" alt="Diseño Gráfico">
+            <div class="trabajo-overlay">
+              <div class="trabajo-overlay-text">
+                <h4>Diseño Personalizado</h4>
+                <p>Creatividad a tu medida</p>
+              </div>
+            </div>
+          </div>
+          <div class="trabajo-content">
+            <h3>🎨 Diseño Gráfico</h3>
+            <p>Soluciones creativas para tu negocio</p>
+            <ul>
+              <li>Tarjetas personales</li>
+              <li>Logotipos y branding</li>
+              <li>Menús y cartas</li>
+              <li>Material publicitario</li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- Stickers y Adhesivos -->
+        <div class="trabajo-card">
+          <div class="trabajo-img-container">
+            <img src="img/stickers.jpeg" alt="Stickers Personalizados">
+            <div class="trabajo-overlay">
+              <div class="trabajo-overlay-text">
+                <h4>Stickers Personalizados</h4>
+                <p>Pega tu estilo en todas partes</p>
+              </div>
+            </div>
+          </div>
+          <div class="trabajo-content">
+            <h3>🩹 Stickers</h3>
+            <p>Adhesivos de alta calidad</p>
+            <ul>
+              <li>Vinilo resistente</li>
+              <li>Diseños personalizados</li>
+              <li>Corte preciso</li>
+              <li>Para interiores/exteriores</li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- Anillados -->
+        <div class="trabajo-card">
+          <div class="trabajo-img-container">
+            <img src="img/anillados.jpg" alt="Anillados Profesionales">
+            <div class="trabajo-overlay">
+              <div class="trabajo-overlay-text">
+                <h4>Encuadernación</h4>
+                <p>Presentaciones impecables</p>
+              </div>
+            </div>
+          </div>
+          <div class="trabajo-content">
+            <h3>📁 Anillados</h3>
+            <p>Terminación profesional para tus documentos</p>
+            <ul>
+              <li>Tesis y trabajos</li>
+              <li>Informes empresariales</li>
+              <li>Manuales y catálogos</li>
+              <li>Espiral y bookcel</li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- Material Escolar -->
+        <div class="trabajo-card">
+          <div class="trabajo-img-container">
+            <img src="img/pack-escolar.jpg" alt="Material Escolar">
+            <div class="trabajo-overlay">
+              <div class="trabajo-overlay-text">
+                <h4>Kits Escolares</h4>
+                <p>Todo en un solo lugar</p>
+              </div>
+            </div>
+          </div>
+          <div class="trabajo-content">
+            <h3>📚 Packs Escolares</h3>
+            <p>Soluciones completas para estudiantes</p>
+            <ul>
+              <li>Kits por grado</li>
+              <li>Marcas premium</li>
+              <li>Personalización</li>
+              <li>Entrega inmediata</li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- Regalería -->
+        <div class="trabajo-card">
+          <div class="trabajo-img-container">
+            <img src="img/regaleria.jpeg" alt="Artículos de Regalería">
+            <div class="trabajo-overlay">
+              <div class="trabajo-overlay-text">
+                <h4>Regalería Creativa</h4>
+                <p>Detalles que marcan la diferencia</p>
+              </div>
+            </div>
+          </div>
+          <div class="trabajo-content">
+            <h3>🎁 Regalería</h3>
+            <p>Productos únicos y personalizados</p>
+            <ul>
+              <li>Tazas personalizadas</li>
+              <li>Llaveros y pins</li>
+              <li>Agendas y cuadernos</li>
+              <li>Souvenirs empresariales</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+      <a href="contacto.html" class="btn-trabajos">Solicitar Presupuesto</a>
+    </section>
+
+    <!-- SECCIÓN DE MARCAS DESTACADAS -->
+    <section class="marcas">
+      <div class="">
+        <h2>Marcas que Confían en Nosotros</h2>
+
+        <!-- Escolares -->
+        <h3 style="text-align: center; color: #2c3e50; margin: 30px 0 20px;">Artículos Escolares</h3>
+        <div class="marcas-grid">
+          <div class="marca-item"><img src="img/faber-logo.png" alt="Faber-Castell"></div>
+          <div class="marca-item"><img src="img/bic-logo.jpg" alt="BIC"></div>
+          <div class="marca-item"><img src="img/rivadavia-logo.jpg" alt="Rivadavia"></div>
+          <div class="marca-item"><img src="img/exito-logo.png" alt="Éxito"></div>
+        </div>
+
+        <!-- Impresiones -->
+        <h3 style="text-align: center; color: #2c3e50; margin: 30px 0 20px;">Impresiones y Diseño</h3>
+        <div class="marcas-grid">
+          <div class="marca-item"><img src="img/hp-logo.jpg" alt="HP"></div>
+          <div class="marca-item"><img src="img/canva-logo.png" alt="Canva"></div>
+          <div class="marca-item"><img src="img/hamm.logo.png" alt="Hammermill"></div>
+          <div class="marca-item"><img src="img/avery-logo.jpeg" alt="Avery"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE OFERTAS ESPECIALES -->
+    <section class="ofertas">
+      <div class="">
+        <h2>Ofertas Especiales</h2>
+        <div class="ofertas-grid">
+          <div class="oferta-card">
+            <div class="oferta-badge">-20%</div>
+            <div class="oferta-img-container">
+              <img src="img/coleccion.jpg" alt="Pack Escolar Oferta">
+              <div class="oferta-overlay">
+                <div class="oferta-overlay-text">
+                  <h4>¡Oferta Especial!</h4>
+                  <p>Precio final $10.399</p>
+                </div>
+              </div>
+            </div>
+            <div class="oferta-content">
+              <h3>Pack Back to School</h3>
+              <p class="precio-original">$12.999</p>
+              <p class="precio-oferta">$10.399</p>
+              <a href="#" class="btn-oferta">Aprovechar Oferta</a>
+            </div>
+          </div>
+
+          <div class="oferta-card">
+            <div class="oferta-badge">-15%</div>
+            <div class="oferta-img-container">
+              <img src="img/mochila.jpg" alt="Mochila Oferta">
+              <div class="oferta-overlay">
+                <div class="oferta-overlay-text">
+                  <h4>¡Descuento Activo!</h4>
+                  <p>Precio final $7.224</p>
+                </div>
+              </div>
+            </div>
+            <div class="oferta-content">
+              <h3>Mochila Premium</h3>
+              <p class="precio-original">$8.499</p>
+              <p class="precio-oferta">$7.224</p>
+              <a href="#" class="btn-oferta">Aprovechar Oferta</a>
+            </div>
+          </div>
+        </div>
+        <!-- Botón para ver más ofertas -->
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="ofertas.html" class="btn-oferta" style="padding: 15px 40px; font-size: 1.1rem;">Conocer más ofertas</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE TESTIMONIOS -->
+    <section class="testimonios">
+      <div>
+        <h2>Lo que Dicen Nuestros Clientes</h2>
+        <div class="testimonios-grid">
+          <div class="testimonio-card">
+            <div class="testimonio-text">
+              <p>"Excelente calidad en los productos y atención personalizada. Siempre encuentro lo que necesito para mis hijos."</p>
+            </div>
+            <div class="testimonio-autor">
+              <img src="img/cliente1.jpg" alt="Cliente 1">
+              <div>
+                <h4>María González</h4>
+                <span>Madre de dos estudiantes</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonio-card">
+            <div class="testimonio-text">
+              <p>"Los precios son increíbles y la entrega siempre puntual. Mi librería de confianza desde hace años."</p>
+            </div>
+            <div class="testimonio-autor">
+              <img src="img/cliente2.jpg" alt="Cliente 2">
+              <div>
+                <h4>Carlos Rodríguez</h4>
+                <span>Profesor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE BLOG/RECURSOS -->
+    <section class="blog-preview">
+      <div>
+        <h2>Consejos y Novedades</h2>
+        <div class="blog-grid">
+          <article class="blog-card">
+            <img src="img/blog1.jpg" alt="Consejos para escolares">
+            <div class="blog-content">
+              <h3>5 Consejos para Organizar el Material Escolar</h3>
+              <p>Aprende a mantener el orden y aprovechar al máximo tus útiles escolares.</p>
+              <a href="#" class="blog-link">Leer más</a>
+            </div>
+          </article>
+          <article class="blog-card">
+            <img src="img/tend-mochilas1.jpg" alt="Tendencias escolares">
+            <div class="blog-content">
+              <h3>Tendencias en Mochilas 2025</h3>
+              <p>Descubre los diseños y funcionalidades que marcarán este año escolar.</p>
+              <a href="#" class="blog-link">Leer más</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE NEWSLETTER -->
+    <section class="new-bg">
+      <div>
+        <div class="newsletter-content">
+          <h2>¡No Te Pierdas Nuestras Ofertas!</h2>
+          <p>Suscríbete y recibe descuentos exclusivos en tu email</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Tu correo electrónico" required>
+            <button type="submit">Suscribirse</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER PROFESIONAL -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="/frontend/img/logodel-nav.png" alt="Librería Santo Tomás">
+          <p>Tu librería de confianza para todos tus necesidades escolares y de oficina.</p>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="#">Novedades</a></li>
+          <li><a href="#">Ofertas</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Categorías</h3>
+        <ul>
+          <li><a href="#">Cuadernos</a></li>
+          <li><a href="#">Mochilas</a></li>
+          <li><a href="#">Útiles Escolares</a></li>
+          <li><a href="#">Arte y Dibujo</a></li>
+          <li><a href="#">Oficina</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <div class="contact-info">
+          <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</p>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> info@libreriasantotomas.com</p>
+          <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-18:00</p>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Métodos de Pago</h3>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-amex"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <h3>Envíos a</h3>
+        <div class="shipping-info">
+          <span>Toda la ciudad</span>
+          <span>Envío gratis desde $15.000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p>&copy; 2025 Librería Santo Tomás. Todos los derechos reservados.</p>
+        <div class="footer-links">
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Política de Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ÍCONO FLOTANTE DEL CARRITO -->
+  <div class="carrito-flotante" onclick="window.location.href='carrito.html'">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="carrito-cantidad" id="cantidad-carrito">0</span>
+  </div>
+  <script src="/frontend/script.js"></script>
+</body>
+</html>

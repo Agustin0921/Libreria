@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ofertas Especiales - Librería Santo Tomás</title>
+  <link rel="stylesheet" href="/frontend/ofertas.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="frontend/img/logo-lb.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="pagina-ofertas">
+  <!-- === LOADER === -->
+  <div id="loader">
+    <div class="lineas">
+      <div class="linea linea1"></div>
+      <div class="linea linea2"></div>
+      <div class="linea linea3"></div>
+      <div class="linea linea4"></div>
+    </div>
+    
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loader = document.getElementById("loader");
+      loader.classList.add("activo");
+
+      setTimeout(() => {
+        loader.classList.remove("activo");
+        loader.classList.add("oculto");
+      }, 1200);
+    });
+  </script>
+
+  <header class="header encabezado-ofertas">
+    <!-- Fila superior -->
+    <div class="top-bar">
+      <div class="logo-nav">
+        <img src="/frontend/img/logodel-nav.png" alt="Logo Librería Santo Tomás">
+      </div>
+
+      <div class="search-container">
+        <input type="text" placeholder="Buscar ofertas..." class="search-box">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+
+      <div class="icon-container">
+        <!-- Ícono del carrito -->
+        <a href="carrito.html" class="icon-link" title="Carrito"><i class="fas fa-shopping-cart"></i></a>
+
+        <!-- Menú del usuario -->
+        <div class="user-menu" id="userMenu">
+          <div class="user-info">
+            <span id="userName">Usuario</span>
+            <i class="arrow-down"></i>
+          </div>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li><a href="micuenta.html">Mi cuenta</a></li>
+            <li><a href="#">Configuración</a></li>
+            <li id="logoutBtn"><a href="#">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      
+        <!-- Ícono de login (si no hay usuario) -->
+        <a href="login.html" class="icon-link" id="loginIcon" title="Iniciar sesión">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Fila inferior (Navbar principal) -->
+    <nav class="navbar navegacion-ofertas">
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav_links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="novedades.html">Novedades</a></li>
+        <li><a href="ofertas.html" class="active">Ofertas</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION OFERTAS -->
+  <section class="seccion-hero-ofertas">
+    <div class="contenido-hero-ofertas">
+      <h1 class="titulo-hero-ofertas">¡GRANDES OFERTAS!</h1>
+      <p class="subtitulo-hero-ofertas">Descuentos exclusivos en productos de calidad</p>
+      <div class="contador-ofertas">
+        <div class="item-contador">
+          <span class="numero-contador" id="dias-ofertas">05</span>
+          <span class="etiqueta-contador">Días</span>
+        </div>
+        <div class="item-contador">
+          <span class="numero-contador" id="horas-ofertas">12</span>
+          <span class="etiqueta-contador">Horas</span>
+        </div>
+        <div class="item-contador">
+          <span class="numero-contador" id="minutos-ofertas">45</span>
+          <span class="etiqueta-contador">Minutos</span>
+        </div>
+        <div class="item-contador">
+          <span class="numero-contador" id="segundos-ofertas">30</span>
+          <span class="etiqueta-contador">Segundos</span>
+        </div>
+      </div>
+      <a href="#destacadas-ofertas" class="boton-cta-ofertas">Ver Todas las Ofertas</a>
+    </div>
+  </section>
+
+  <main class="contenedor-principal-ofertas">
+    <!-- FILTROS DE OFERTAS -->
+    <section class="seccion-filtros-ofertas">
+      <div class="container">
+        <h2 class="titulo-filtros-ofertas">Filtrar Ofertas</h2>
+        <div class="contenedor-filtros-ofertas">
+          <button class="boton-filtro-ofertas activo" data-categoria="todas">Todas</button>
+          <button class="boton-filtro-ofertas" data-categoria="escolares">Escolares</button>
+          <button class="boton-filtro-ofertas" data-categoria="mochilas">Mochilas</button>
+          <button class="boton-filtro-ofertas" data-categoria="arte">Arte</button>
+          <button class="boton-filtro-ofertas" data-categoria="tecnologia">Tecnología</button>
+          <button class="boton-filtro-ofertas" data-categoria="relampago">Relámpago</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE OFERTAS DESTACADAS -->
+    <section id="destacadas-ofertas" class="seccion-destacadas-ofertas">
+      <div class="container">
+        <h2 class="titulo-seccion-ofertas">Ofertas Destacadas</h2>
+        <div class="grid-destacadas-ofertas">
+          <!-- Oferta 1 -->
+          <div class="tarjeta-oferta-destacada" data-categoria="escolares">
+            <div class="badge-oferta-destacada">-40%</div>
+            <div class="contenedor-imagen-oferta-destacada">
+              <img src="img/coleccion.jpg" alt="Pack Escolar Oferta">
+              <div class="overlay-oferta-destacada">
+                <div class="texto-overlay-destacada">
+                  <h4>¡Super Oferta!</h4>
+                  <p>Precio final $10.799</p>
+                </div>
+              </div>
+            </div>
+            <div class="contenido-oferta-destacada">
+              <h3>Pack Back to School Premium</h3>
+              <p class="precio-original-destacada">$17.999</p>
+              <p class="precio-oferta-destacada">$10.799</p>
+              <div class="estadisticas-oferta">
+                <div class="info-stock">
+                  <i class="fas fa-box"></i>
+                  <span>Solo 15 disponibles</span>
+                </div>
+                <div class="info-vendidos">
+                  <i class="fas fa-fire"></i>
+                  <span>52 vendidos</span>
+                </div>
+              </div>
+              <a href="#" class="boton-oferta-destacada">Aprovechar Oferta</a>
+            </div>
+          </div>
+
+          <!-- Oferta 2 -->
+          <div class="tarjeta-oferta-destacada" data-categoria="mochilas">
+            <div class="badge-oferta-destacada">-35%</div>
+            <div class="contenedor-imagen-oferta-destacada">
+              <img src="img/mochila.jpg" alt="Mochila Oferta">
+              <div class="overlay-oferta-destacada">
+                <div class="texto-overlay-destacada">
+                  <h4>¡Oferta Especial!</h4>
+                  <p>Precio final $8.999</p>
+                </div>
+              </div>
+            </div>
+            <div class="contenido-oferta-destacada">
+              <h3>Mochila Antirrobo Premium</h3>
+              <p class="precio-original-destacada">$13.999</p>
+              <p class="precio-oferta-destacada">$8.999</p>
+              <div class="estadisticas-oferta">
+                <div class="info-stock">
+                  <i class="fas fa-box"></i>
+                  <span>Solo 8 disponibles</span>
+                </div>
+                <div class="info-vendidos">
+                  <i class="fas fa-fire"></i>
+                  <span>34 vendidos</span>
+                </div>
+              </div>
+              <a href="#" class="boton-oferta-destacada">Aprovechar Oferta</a>
+            </div>
+          </div>
+
+          <!-- Oferta 3 -->
+          <div class="tarjeta-oferta-destacada" data-categoria="arte">
+            <div class="badge-oferta-destacada">-50%</div>
+            <div class="contenedor-imagen-oferta-destacada">
+              <img src="img/arte-oferta.jpg" alt="Material de Arte Oferta">
+              <div class="overlay-oferta-destacada">
+                <div class="texto-overlay-destacada">
+                  <h4>¡Gran Descuento!</h4>
+                  <p>Precio final $7.499</p>
+                </div>
+              </div>
+            </div>
+            <div class="contenido-oferta-destacada">
+              <h3>Set Profesional de Arte</h3>
+              <p class="precio-original-destacada">$14.999</p>
+              <p class="precio-oferta-destacada">$7.499</p>
+              <div class="estadisticas-oferta">
+                <div class="info-stock">
+                  <i class="fas fa-box"></i>
+                  <span>Solo 12 disponibles</span>
+                </div>
+                <div class="info-vendidos">
+                  <i class="fas fa-fire"></i>
+                  <span>28 vendidos</span>
+                </div>
+              </div>
+              <a href="#" class="boton-oferta-destacada">Aprovechar Oferta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN OFERTAS RELÁMPAGO -->
+    <section class="seccion-relampago-ofertas">
+      <div class="container">
+        <div class="encabezado-relampago">
+          <h2 class="titulo-seccion-ofertas">⚡ Ofertas Relámpago</h2>
+          <div class="temporizador-relampago">
+            <span class="etiqueta-temporizador">Termina en:</span>
+            <span class="temporizador" id="temporizador-relampago">23:45:12</span>
+          </div>
+        </div>
+        <div class="grid-relampago-ofertas">
+          <!-- Oferta Relámpago 1 -->
+          <div class="tarjeta-oferta-relampago" data-categoria="relampago">
+            <div class="badge-relampago">¡24H!</div>
+            <div class="contenedor-imagen-relampago">
+              <img src="img/relampago1.jpg" alt="Oferta Relámpago 1">
+              <div class="overlay-relampago">
+                <div class="texto-overlay-relampago">
+                  <h4>¡Solo Hoy!</h4>
+                  <p>No te lo pierdas</p>
+                </div>
+              </div>
+            </div>
+            <div class="contenido-oferta-relampago">
+              <h3>Estuche Escolar Profesional</h3>
+              <p class="precio-original-relampago">$4.999</p>
+              <p class="precio-oferta-relampago">$2.499</p>
+              <div class="barra-progreso">
+                <div class="relleno-progreso" style="width: 75%"></div>
+              </div>
+              <div class="stock-relampago">Quedan 15 de 20</div>
+              <a href="#" class="boton-relampago">Comprar Ahora</a>
+            </div>
+          </div>
+
+          <!-- Oferta Relámpago 2 -->
+          <div class="tarjeta-oferta-relampago" data-categoria="relampago">
+            <div class="badge-relampago">¡48H!</div>
+            <div class="contenedor-imagen-relampago">
+              <img src="img/relampago2.jpg" alt="Oferta Relámpago 2">
+              <div class="overlay-relampago">
+                <div class="texto-overlay-relampago">
+                  <h4>¡Últimas Unidades!</h4>
+                  <p>Stock limitado</p>
+                </div>
+              </div>
+            </div>
+            <div class="contenido-oferta-relampago">
+              <h3>Pack de Lapiceras Premium</h3>
+              <p class="precio-original-relampago">$3.999</p>
+              <p class="precio-oferta-relampago">$1.999</p>
+              <div class="barra-progreso">
+                <div class="relleno-progreso" style="width: 40%"></div>
+              </div>
+              <div class="stock-relampago">Quedan 8 de 20</div>
+              <a href="#" class="boton-relampago">Comprar Ahora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER OFERTAS -->
+    <section class="seccion-newsletter-ofertas">
+      <div class="container">
+        <div class="contenido-newsletter-ofertas">
+          <h2>¡Recibe Ofertas Exclusivas!</h2>
+          <p>Sé el primero en enterarte de nuestros descuentos especiales</p>
+          <form class="formulario-newsletter-ofertas">
+            <input type="email" placeholder="Tu correo electrónico" required>
+            <button type="submit">Suscribirse</button>
+          </form>
+          <p class="nota-newsletter">* Prometemos no spamear. Solo ofertas realmente buenas.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="/frontend/img/logodel-nav.png" alt="Librería Santo Tomás">
+          <p>Tu librería de confianza para todos tus necesidades escolares y de oficina.</p>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="novedades.html">Novedades</a></li>
+          <li><a href="ofertas.html">Ofertas</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Categorías</h3>
+        <ul>
+          <li><a href="#">Cuadernos</a></li>
+          <li><a href="#">Mochilas</a></li>
+          <li><a href="#">Útiles Escolares</a></li>
+          <li><a href="#">Arte y Dibujo</a></li>
+          <li><a href="#">Oficina</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <div class="contact-info">
+          <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</p>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> info@libreriasantotomas.com</p>
+          <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-18:00</p>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Métodos de Pago</h3>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-amex"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <h3>Envíos a</h3>
+        <div class="shipping-info">
+          <span>Toda la ciudad</span>
+          <span>Envío gratis desde $15.000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p>&copy; 2025 Librería Santo Tomás. Todos los derechos reservados.</p>
+        <div class="footer-links">
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Política de Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // === MENÚ HAMBURGUESA RESPONSIVE ===
+  document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const navLinks = document.getElementById('nav-links');
+      
+      if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', function() {
+              navLinks.classList.toggle('active');
+              // Cambiar ícono
+              const icon = this.querySelector('i');
+              if (navLinks.classList.contains('active')) {
+                  icon.classList.remove('fa-bars');
+                  icon.classList.add('fa-times');
+              } else {
+                  icon.classList.remove('fa-times');
+                  icon.classList.add('fa-bars');
+              }
+          });
+          
+          // Cerrar menú al hacer clic en un enlace
+          const links = navLinks.querySelectorAll('a');
+          links.forEach(link => {
+              link.addEventListener('click', function() {
+                  navLinks.classList.remove('active');
+                  const icon = menuToggle.querySelector('i');
+                  icon.classList.remove('fa-times');
+                  icon.classList.add('fa-bars');
+              });
+          });
+          
+          // Cerrar menú al redimensionar la ventana
+          window.addEventListener('resize', function() {
+              if (window.innerWidth > 900) {
+                  navLinks.classList.remove('active');
+                  const icon = menuToggle.querySelector('i');
+                  icon.classList.remove('fa-times');
+                  icon.classList.add('fa-bars');
+              }
+          });
+      }
+  });
+  </script>
+  <script src="/frontend/script.js"></script>
+  <script src="/frontend/script-ofertas.js"></script>
+</body>
+</html>
