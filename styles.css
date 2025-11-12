@@ -283,7 +283,7 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 80px 10%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6)), url(/frontend/img/fondo-hero-inicio.png);
+  background: linear-gradient(rgba(0, 0, 0, 0.6)), url(img/fondo-hero-inicio.png);
   background-size: cover;
   background-position: center;
   color: #fff;

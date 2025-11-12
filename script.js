@@ -105,7 +105,7 @@ function renderizarCarrito() {
     
     contenedor.innerHTML = carrito.map((item, index) => `
         <div class="carrito-item" data-id="${item.id}">
-            <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='/frontend/img/placeholder.jpg'">
+            <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='img/placeholder.jpg'">
             <div class="carrito-info">
                 <h3>${item.nombre}</h3>
                 <p>${item.descripcion || 'Producto de librería'}</p>
