@@ -282,3 +282,4 @@ function mostrarNotificacionOferta(mensaje) {
 
 // Hacer funciones disponibles globalmente
 window.agregarOfertaAlCarrito = agregarOfertaAlCarrito;
+
