@@ -181,3 +181,93 @@ def get_perfil(usuario_id: int):
         "nombre": usuario.nombre,
         "email": usuario.email
     }
+
+
+# ---------- ACTUALIZAR PRODUCTO ----------
+@app.put("/productos/{producto_id}")
+def actualizar_producto(
+    producto_id: int,
+    nombre: str = Form(None),
+    categoria: str = Form(None),
+    precio: float = Form(None),
+    stock: int = Form(None)
+):
+    db = SessionLocal()
+    producto = db.query(Producto).filter(Producto.id == producto_id).first()
+    
+    if not producto:
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
+    
+    if nombre is not None:
+        producto.nombre = nombre
+    if categoria is not None:
+        producto.categoria = categoria
+    if precio is not None:
+        producto.precio = precio
+    if stock is not None:
+        producto.stock = stock
+    
+    db.commit()
+    return {"mensaje": "Producto actualizado correctamente"}
+
+# ---------- ELIMINAR PEDIDO ----------
+@app.delete("/pedidos/{pedido_id}")
+def eliminar_pedido(pedido_id: int):
+    db = SessionLocal()
+    pedido = db.query(Pedido).filter(Pedido.id == pedido_id).first()
+    
+    if not pedido:
+        raise HTTPException(status_code=404, detail="Pedido no encontrado")
+    
+    # Restaurar stock del producto
+    producto = db.query(Producto).filter(Producto.id == pedido.producto_id).first()
+    if producto:
+        producto.stock += pedido.cantidad
+    
+    db.delete(pedido)
+    db.commit()
+    
+    return {"mensaje": "Pedido eliminado y stock restaurado"}
+
+# ---------- ACTUALIZAR USUARIO ----------
+@app.put("/usuarios/{usuario_id}")
+def actualizar_usuario(
+    usuario_id: int,
+    nombre: str = Form(None),
+    email: str = Form(None)
+):
+    db = SessionLocal()
+    usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
+    
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    if nombre is not None:
+        usuario.nombre = nombre
+    if email is not None:
+        # Verificar si el email ya existe en otro usuario
+        existente = db.query(Usuario).filter(Usuario.email == email, Usuario.id != usuario_id).first()
+        if existente:
+            raise HTTPException(status_code=400, detail="El email ya está en uso")
+        usuario.email = email
+    
+    db.commit()
+    return {"mensaje": "Usuario actualizado correctamente"}
+
+# ---------- PEDIDOS POR USUARIO ----------
+@app.get("/usuarios/{usuario_id}/pedidos")
+def get_pedidos_usuario(usuario_id: int):
+    db = SessionLocal()
+    pedidos = db.query(Pedido).filter(Pedido.usuario_id == usuario_id).all()
+    
+    return [
+        {
+            "id": p.id,
+            "producto_id": p.producto_id,
+            "producto_nombre": p.producto.nombre,
+            "cantidad": p.cantidad,
+            "precio_unitario": p.producto.precio,
+            "total": p.cantidad * p.producto.precio
+        }
+        for p in pedidos
+    ]

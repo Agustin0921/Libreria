@@ -1,16 +1,6 @@
 // ==== LIMPIEZA DE SESIÓN ANTIGUA ==== //
 document.addEventListener("DOMContentLoaded", () => {
   const usuarioGuardado = localStorage.getItem("usuario");
-
-  // COMENTADO PARA GITHUB PAGES - Descomenta si necesitas en local
-  // Si no estás en modo servidor (no logueado realmente), limpiar
-  // if (!window.location.href.includes("localhost") && !window.location.href.includes("127.0.0.1")) {
-  //   if (usuarioGuardado) {
-  //     localStorage.removeItem("usuario");
-  //     localStorage.removeItem("token");
-  //     console.log("🧹 Sesión limpia: usuario eliminado porque no hay servidor activo.");
-  //   }
-  // }
 });
 
 // === CARRITO DE COMPRAS MEJORADO ===
@@ -106,7 +96,7 @@ function renderizarCarrito() {
     
     contenedor.innerHTML = carrito.map((item, index) => `
         <div class="carrito-item" data-id="${item.id}">
-            <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='img/placeholder.jpg'">
+            <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='https://via.placeholder.com/150x150/4A90E2/FFFFFF?text=Imagen'">
             <div class="carrito-info">
                 <h3>${item.nombre}</h3>
                 <p>${item.descripcion || 'Producto de librería'}</p>
@@ -200,12 +190,276 @@ function finalizarCompra() {
     actualizarContadorCarrito();
 }
 
-// Hacer funciones disponibles globalmente
-window.agregarAlCarrito = agregarAlCarrito;
-window.cambiarCantidadCarrito = cambiarCantidadCarrito;
-window.eliminarDelCarrito = eliminarDelCarrito;
-window.vaciarCarrito = vaciarCarrito;
-window.finalizarCompra = finalizarCompra;
+// === FUNCIONES MEJORADAS (CON Y SIN BACKEND) ===
+
+// Función para verificar si el backend está disponible
+async function verificarBackend() {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+        
+        const response = await fetch('http://127.0.0.1:8000/productos', {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        return response.ok;
+    } catch (error) {
+        console.log('🔌 Backend no disponible, usando modo demo');
+        return false;
+    }
+}
+
+// Función para cargar pedidos del usuario (FUNCIONA CON Y SIN BACKEND)
+async function cargarPedidosUsuario() {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    
+    if (!usuario) {
+        return [];
+    }
+    
+    try {
+        const backendDisponible = await verificarBackend();
+        
+        if (backendDisponible && usuario.id) {
+            // === MODO BACKEND ===
+            console.log('✅ Cargando pedidos desde backend');
+            const response = await fetch(`http://127.0.0.1:8000/usuarios/${usuario.id}/pedidos`);
+            if (response.ok) {
+                const pedidos = await response.json();
+                return pedidos;
+            }
+        }
+        
+        // === MODO DEMO (sin backend) ===
+        console.log('🔄 Cargando pedidos desde demo');
+        const pedidosDemo = JSON.parse(localStorage.getItem('pedidos_demo') || '[]');
+        
+        // Filtrar pedidos del usuario actual (en demo, todos son del usuario)
+        return pedidosDemo.slice(-10); // Últimos 10 pedidos
+        
+    } catch (error) {
+        console.error('Error cargando pedidos:', error);
+        
+        // Fallback a modo demo
+        const pedidosDemo = JSON.parse(localStorage.getItem('pedidos_demo') || '[]');
+        return pedidosDemo.slice(-10);
+    }
+}
+
+// Función para cancelar pedido (FUNCIONA CON Y SIN BACKEND)
+async function cancelarPedidoBackend(pedidoId) {
+    try {
+        const backendDisponible = await verificarBackend();
+        
+        if (backendDisponible) {
+            // === MODO BACKEND ===
+            const response = await fetch(`http://127.0.0.1:8000/pedidos/${pedidoId}`, {
+                method: 'DELETE'
+            });
+            
+            if (!response.ok) {
+                throw new Error('Error al cancelar pedido');
+            }
+            
+            const resultado = await response.json();
+            mostrarNotificacion(resultado.mensaje);
+            return true;
+        } else {
+            // === MODO DEMO (sin backend) ===
+            const pedidosDemo = JSON.parse(localStorage.getItem('pedidos_demo') || '[]');
+            const pedidosActualizados = pedidosDemo.filter(pedido => pedido.id !== pedidoId);
+            localStorage.setItem('pedidos_demo', JSON.stringify(pedidosActualizados));
+            
+            mostrarNotificacion('Pedido demo cancelado exitosamente');
+            return true;
+        }
+        
+    } catch (error) {
+        console.error('Error cancelando pedido:', error);
+        mostrarNotificacion('Error al cancelar pedido');
+        return false;
+    }
+}
+
+// Función para finalizar compra (FUNCIONA CON Y SIN BACKEND)
+async function finalizarCompraBackend() {
+    if (carrito.length === 0) {
+        alert('Tu carrito está vacío');
+        return;
+    }
+    
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    if (!usuario) {
+        alert('Debes iniciar sesión para finalizar la compra');
+        return;
+    }
+    
+    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    
+    try {
+        const backendDisponible = await verificarBackend();
+        
+        if (backendDisponible && usuario.id) {
+            // === MODO BACKEND ===
+            console.log('✅ Procesando compra con backend');
+            
+            // Realizar cada pedido en el backend
+            for (const item of carrito) {
+                const formData = new FormData();
+                formData.append('usuario_id', usuario.id);
+                formData.append('producto_id', item.id);
+                formData.append('cantidad', item.cantidad);
+                
+                const response = await fetch('http://127.0.0.1:8000/pedidos', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Error en el pedido');
+                }
+            }
+            
+            mostrarNotificacion(`¡Compra realizada con éxito! Total: $${total.toLocaleString()}`);
+            
+        } else {
+            // === MODO DEMO (sin backend) ===
+            console.log('🔄 Procesando compra en modo demo');
+            
+            // Crear pedidos demo en localStorage
+            const pedidosExistentes = JSON.parse(localStorage.getItem('pedidos_demo') || '[]');
+            const nuevosPedidos = carrito.map(item => ({
+                id: Date.now() + Math.random(),
+                producto_id: item.id,
+                producto_nombre: item.nombre,
+                cantidad: item.cantidad,
+                precio_unitario: item.precio,
+                total: item.precio * item.cantidad,
+                fecha: new Date().toISOString()
+            }));
+            
+            localStorage.setItem('pedidos_demo', JSON.stringify([...pedidosExistentes, ...nuevosPedidos]));
+            
+            mostrarNotificacion(`¡Compra demo realizada! Total: $${total.toLocaleString()}`);
+        }
+        
+        // Limpiar carrito después de compra exitosa (en ambos modos)
+        carrito = [];
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarCarrito();
+        actualizarContadorCarrito();
+        
+        // Recargar pedidos
+        if (typeof cargarMisPedidos === 'function') {
+            await cargarMisPedidos();
+        }
+        
+    } catch (error) {
+        console.error('Error en finalizar compra:', error);
+        alert('Error al procesar la compra: ' + error.message);
+    }
+}
+
+// Función para cargar y mostrar los pedidos del usuario
+async function cargarMisPedidos() {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const pedidosSection = document.getElementById('pedidos-usuario');
+    const listaPedidos = document.getElementById('lista-pedidos');
+    const pedidosVacio = document.getElementById('pedidos-vacio');
+    
+    // Mostrar sección solo si hay usuario logueado
+    if (usuario) {
+        pedidosSection.style.display = 'block';
+        
+        try {
+            const pedidos = await cargarPedidosUsuario();
+            
+            if (pedidos.length === 0) {
+                listaPedidos.style.display = 'none';
+                pedidosVacio.style.display = 'block';
+                return;
+            }
+            
+            listaPedidos.style.display = 'grid';
+            pedidosVacio.style.display = 'none';
+            
+            listaPedidos.innerHTML = pedidos.map(pedido => `
+                <div class="pedido-item" data-pedido-id="${pedido.id}">
+                    <div class="pedido-info">
+                        <h4>${pedido.producto_nombre}</h4>
+                        <p>Pedido #${Math.round(pedido.id)}</p>
+                    </div>
+                    <div class="pedido-cantidad">
+                        <small>Cantidad</small>
+                        <div>${pedido.cantidad} und</div>
+                    </div>
+                    <div class="pedido-precio">
+                        <small>Precio c/u</small>
+                        <div>$${pedido.precio_unitario}</div>
+                    </div>
+                    <div class="pedido-total">
+                        <small>Total</small>
+                        <div>$${pedido.total}</div>
+                    </div>
+                    <button class="btn-cancelar" onclick="cancelarPedido(${pedido.id})" 
+                            title="Cancelar pedido">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Error cargando pedidos:', error);
+            listaPedidos.innerHTML = '<p>Error al cargar los pedidos</p>';
+        }
+    } else {
+        pedidosSection.style.display = 'none';
+    }
+}
+
+// Función mejorada para cancelar pedido
+async function cancelarPedido(pedidoId) {
+    if (!confirm('¿Estás seguro de que quieres cancelar este pedido?')) {
+        return;
+    }
+    
+    const btnCancelar = document.querySelector(`[data-pedido-id="${pedidoId}"] .btn-cancelar`);
+    if (btnCancelar) {
+        btnCancelar.disabled = true;
+        btnCancelar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cancelando...';
+    }
+    
+    try {
+        const success = await cancelarPedidoBackend(pedidoId);
+        
+        if (success) {
+            // Recargar la lista de pedidos
+            await cargarMisPedidos();
+            mostrarNotificacion('Pedido cancelado exitosamente');
+        }
+    } catch (error) {
+        console.error('Error cancelando pedido:', error);
+        if (btnCancelar) {
+            btnCancelar.disabled = false;
+            btnCancelar.innerHTML = '<i class="fas fa-times"></i> Cancelar';
+        }
+    }
+}
+
+// Función para mostrar/ocultar sección de pedidos basado en el estado de login
+function actualizarVisibilidadPedidos() {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const pedidosSection = document.getElementById('pedidos-usuario');
+    
+    if (usuario) {
+        pedidosSection.style.display = 'block';
+        cargarMisPedidos(); // Cargar pedidos automáticamente
+    } else {
+        pedidosSection.style.display = 'none';
+    }
+}
 
 // === SCRIPT PRINCIPAL ===
 document.addEventListener("DOMContentLoaded", () => {
@@ -281,8 +535,6 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "index.html";
         }
       });
-    } else {
-      console.log("❌ Formulario de registro NO encontrado");
     }
 
     // === LOGIN ===
@@ -336,12 +588,10 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "index.html";
         }
       });
-    } else {
-      console.log("❌ Formulario de login NO encontrado");
     }
   }
 
-    // --- MENÚ RESPONSIVE (NAVBAR) MEJORADO ---
+  // --- MENÚ RESPONSIVE (NAVBAR) MEJORADO ---
   const toggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
@@ -412,74 +662,75 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* === CONTROL DE USUARIO Y MENÚ "MI CUENTA" === */
-const userMenu = document.getElementById("userMenu");
-const userName = document.getElementById("userName");
-const loginIcon = document.getElementById("loginIcon");
-const logoutBtn = document.getElementById("logoutBtn");
-const dropdownMenu = document.getElementById("dropdownMenu");
+  const userMenu = document.getElementById("userMenu");
+  const userName = document.getElementById("userName");
+  const loginIcon = document.getElementById("loginIcon");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const dropdownMenu = document.getElementById("dropdownMenu");
 
-let usuario = null;
+  let usuario = null;
 
-// Intentar obtener usuario válido desde localStorage
-try {
-  const raw = localStorage.getItem("usuario");
-  if (raw) {
-    const data = JSON.parse(raw);
-    if (data && data.nombre && data.email) {
-      usuario = data;
-    } else {
-      localStorage.removeItem("usuario");
+  // Intentar obtener usuario válido desde localStorage
+  try {
+    const raw = localStorage.getItem("usuario");
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (data && data.nombre && data.email) {
+        usuario = data;
+      } else {
+        localStorage.removeItem("usuario");
+      }
     }
+  } catch {
+    localStorage.removeItem("usuario");
   }
-} catch {
-  localStorage.removeItem("usuario");
-}
 
-// Mostrar u ocultar el icono y el menú según haya sesión
-if (usuario) {
-  if (userName) userName.textContent = `Hola, ${usuario.nombre.split(' ')[0]}`; // Solo primer nombre
-  if (userMenu) userMenu.style.display = "flex";
-  if (loginIcon) loginIcon.style.display = "none";
-} else {
-  if (userMenu) userMenu.style.display = "none";
-  if (loginIcon) loginIcon.style.display = "inline-flex";
-}
+  // Mostrar u ocultar el icono y el menú según haya sesión
+  if (usuario) {
+    if (userName) userName.textContent = `Hola, ${usuario.nombre.split(' ')[0]}`;
+    if (userMenu) userMenu.style.display = "flex";
+    if (loginIcon) loginIcon.style.display = "none";
+  } else {
+    if (userMenu) userMenu.style.display = "none";
+    if (loginIcon) loginIcon.style.display = "inline-flex";
+  }
 
-// Abrir/cerrar menú desplegable
-if (userMenu) {
-  const userInfo = userMenu.querySelector(".user-info");
-  
-  if (userInfo) {
-    userInfo.addEventListener("click", (e) => {
-      e.stopPropagation();
-      userMenu.classList.toggle("active");
+  // Abrir/cerrar menú desplegable
+  if (userMenu) {
+    const userInfo = userMenu.querySelector(".user-info");
+    
+    if (userInfo) {
+      userInfo.addEventListener("click", (e) => {
+        e.stopPropagation();
+        userMenu.classList.toggle("active");
+      });
+    }
+
+    // Cerrar menú al hacer click fuera
+    document.addEventListener("click", (e) => {
+      if (!userMenu.contains(e.target)) {
+        userMenu.classList.remove("active");
+      }
     });
   }
 
-  // Cerrar menú al hacer click fuera
-  document.addEventListener("click", (e) => {
-    if (!userMenu.contains(e.target)) {
-      userMenu.classList.remove("active");
-    }
-  });
-}
-
-// Cerrar sesión
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    localStorage.removeItem("usuario");
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-  });
-}
+  // Cerrar sesión
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    });
+  }
 
   // === CARRITO - INICIALIZACIÓN ===
   actualizarContadorCarrito();
-  
+
   // Renderizar carrito si estamos en la página del carrito
   if (window.location.pathname.includes("carrito.html")) {
       renderizarCarrito();
+      actualizarVisibilidadPedidos();
       
       // Event listeners para botones del carrito
       const vaciarBtn = document.getElementById('vaciar-carrito');
@@ -491,7 +742,7 @@ if (logoutBtn) {
       }
       
       if (comprarBtn) {
-          comprarBtn.addEventListener('click', finalizarCompra);
+          comprarBtn.addEventListener('click', finalizarCompraBackend);
       }
       
       if (seguirComprandoBtn) {
@@ -513,7 +764,7 @@ if (logoutBtn) {
     function dividirPorAltura() {
       paginas = [];
       const alturaMaxima = contenedor.clientHeight || window.innerHeight * 0.8;
-      const cardAltura = cards[0].offsetHeight + 30; // altura aprox. + gap
+      const cardAltura = cards[0].offsetHeight + 30;
       const filasVisibles = Math.floor(alturaMaxima / cardAltura);
       const columnas = getComputedStyle(contenedor).gridTemplateColumns.split(" ").length;
       const productosPorPagina = filasVisibles * columnas;
@@ -583,84 +834,20 @@ if (logoutBtn) {
           cantidad: cantidad
         };
 
+        console.log('🛒 Agregando producto:', producto);
         agregarAlCarrito(producto);
       }
     });
   }
 
   // === LOADER DE TRANSICIÓN ENTRE PÁGINAS ===
-  // === LOADER MEJORADO ===
-const loader = document.getElementById("loader");
-if (loader) {
-  // Ocultar loader después de 1.2 segundos
-  setTimeout(() => {
-    loader.classList.add("oculto");
-  }, 1200);
-  
-  // NO interceptar clics en enlaces - dejar que naveguen normalmente
-}
-
-  // === NAVBAR MEJORADO PARA NOVEDADES ===
-  if (window.location.pathname.includes("novedades.html")) {
-    
-    // Control del menú de usuario para novedades
-    const userMenu = document.getElementById("userMenu");
-    const dropdown = document.getElementById("dropdownMenu");
-
-    if (userMenu) {
-      const userInfo = userMenu.querySelector(".user-info");
-      
-      if (userInfo) {
-        userInfo.addEventListener("click", (e) => {
-          e.stopPropagation();
-          userMenu.classList.toggle("active");
-        });
-      }
-
-      // Cerrar menú al hacer click fuera
-      document.addEventListener("click", () => {
-        userMenu.classList.remove("active");
-      });
-    }
-
-    // Efectos hover mejorados para enlaces de navegación
-    const navLinksElements = document.querySelectorAll(".nav_links a");
-    navLinksElements.forEach(link => {
-      link.addEventListener("mouseenter", function() {
-        this.style.transform = "translateY(-2px)";
-      });
-      
-      link.addEventListener("mouseleave", function() {
-        this.style.transform = "translateY(0)";
-      });
-    });
-
-    // Efecto de aparición suave para el header
-    const header = document.querySelector(".header");
-    if (header) {
-      setTimeout(() => {
-        header.style.opacity = "1";
-        header.style.transform = "translateY(0)";
-      }, 300);
-    }
-
-    console.log("🎨 Navbar de novedades mejorado cargado correctamente");
+  const loader = document.getElementById("loader");
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add("oculto");
+    }, 1200);
   }
 });
-
-// === LIMPIEZA PREVENTIVA DE USUARIO ===
-if (localStorage.getItem("usuario")) {
-  try {
-    const test = JSON.parse(localStorage.getItem("usuario"));
-    if (!test || !test.nombre || !test.email) {
-      localStorage.removeItem("usuario");
-    }
-  } catch {
-    localStorage.removeItem("usuario");
-  }
-}
-
-
 
 // === NAVBAR DESAPARECE AL HACER SCROLL ===
 let lastScroll = 0;
@@ -671,12 +858,21 @@ window.addEventListener("scroll", () => {
   if (!navbar) return;
 
   if (currentScroll > lastScroll && currentScroll > 100) {
-    // Desplazando hacia abajo → ocultar
     navbar.classList.add("hide");
   } else {
-    // Desplazando hacia arriba → mostrar
     navbar.classList.remove("hide");
   }
 
   lastScroll = currentScroll;
 });
+
+// Hacer funciones disponibles globalmente
+window.agregarAlCarrito = agregarAlCarrito;
+window.cambiarCantidadCarrito = cambiarCantidadCarrito;
+window.eliminarDelCarrito = eliminarDelCarrito;
+window.vaciarCarrito = vaciarCarrito;
+window.finalizarCompra = finalizarCompra;
+window.finalizarCompraBackend = finalizarCompraBackend;
+window.cargarMisPedidos = cargarMisPedidos;
+window.cancelarPedido = cancelarPedido;
+window.actualizarVisibilidadPedidos = actualizarVisibilidadPedidos;
