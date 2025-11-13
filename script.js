@@ -752,92 +752,141 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   }
 
-  // === PÁGINA DE PRODUCTOS CON PAGINACIÓN ===
+  // === PÁGINA DE PRODUCTOS CON BÚSQUEDA SIMPLIFICADA ===
   if (window.location.pathname.includes("productos.html")) {
-    const contenedor = document.getElementById("productos");
-    const cards = Array.from(contenedor.querySelectorAll(".producto-card"));
-    const paginacion = document.getElementById("paginacion");
-    let paginas = [];
-    let paginaActual = 0;
+      const contenedor = document.getElementById("productos");
+      const paginacion = document.getElementById("paginacion");
+      const inputBusqueda = document.getElementById('buscar');
+      const searchBoxHeader = document.querySelector('.search-box');
+      
+      let todosLosProductos = Array.from(contenedor.querySelectorAll(".producto-card"));
+      let timeoutBusqueda = null;
 
-    // --- Calcular cuántas tarjetas entran en pantalla ---
-    function dividirPorAltura() {
-      paginas = [];
-      const alturaMaxima = contenedor.clientHeight || window.innerHeight * 0.8;
-      const cardAltura = cards[0].offsetHeight + 30;
-      const filasVisibles = Math.floor(alturaMaxima / cardAltura);
-      const columnas = getComputedStyle(contenedor).gridTemplateColumns.split(" ").length;
-      const productosPorPagina = filasVisibles * columnas;
-
-      for (let i = 0; i < cards.length; i += productosPorPagina) {
-        paginas.push(cards.slice(i, i + productosPorPagina));
+      // --- FUNCIÓN DE BÚSQUEDA MUY SIMPLE ---
+      function ejecutarBusqueda() {
+          const busqueda = inputBusqueda.value.toLowerCase().trim();
+          
+          // Ocultar mensaje anterior si existe
+          const mensajeAnterior = document.getElementById('mensaje-no-resultados');
+          if (mensajeAnterior) {
+              mensajeAnterior.remove();
+          }
+          
+          let productosEncontrados = 0;
+          
+          // Mostrar/ocultar productos basado en la búsqueda
+          todosLosProductos.forEach(producto => {
+              const nombre = producto.getAttribute('data-nombre').toLowerCase();
+              const descripcion = producto.getAttribute('data-desc').toLowerCase();
+              
+              if (busqueda === '' || nombre.includes(busqueda) || descripcion.includes(busqueda)) {
+                  producto.style.display = 'block';
+                  productosEncontrados++;
+              } else {
+                  producto.style.display = 'none';
+              }
+          });
+          
+          // Mostrar mensaje si no hay resultados
+          if (productosEncontrados === 0 && busqueda !== '') {
+              const mensaje = document.createElement('div');
+              mensaje.id = 'mensaje-no-resultados';
+              mensaje.className = 'mensaje-no-resultados';
+              mensaje.innerHTML = `<p>No se encontraron productos para "${busqueda}"</p>`;
+              contenedor.appendChild(mensaje);
+          }
+          
+          // Ocultar paginación durante la búsqueda
+          if (paginacion) {
+              paginacion.style.display = busqueda === '' ? 'flex' : 'none';
+          }
       }
-    }
 
-    // --- Mostrar la página actual ---
-    function mostrarPagina() {
-      cards.forEach(card => card.style.display = "none");
-      if (paginas[paginaActual]) {
-        paginas[paginaActual].forEach(card => card.style.display = "block");
+      // --- CONFIGURAR EVENT LISTENERS SIMPLES ---
+      if (inputBusqueda) {
+          inputBusqueda.addEventListener('input', function() {
+              // Limpiar timeout anterior
+              if (timeoutBusqueda) {
+                  clearTimeout(timeoutBusqueda);
+              }
+              
+              // Ejecutar después de 500ms (debounce)
+              timeoutBusqueda = setTimeout(ejecutarBusqueda, 500);
+          });
+          
+          inputBusqueda.addEventListener('keypress', function(e) {
+              if (e.key === 'Enter') {
+                  if (timeoutBusqueda) {
+                      clearTimeout(timeoutBusqueda);
+                  }
+                  ejecutarBusqueda();
+              }
+          });
       }
-      generarPaginacion();
-    }
 
-    // --- Generar botones de paginación ---
-    function generarPaginacion() {
-      paginacion.innerHTML = "";
-      paginas.forEach((_, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = i + 1;
-        btn.classList.toggle("active", i === paginaActual);
-        btn.addEventListener("click", () => {
-          paginaActual = i;
-          mostrarPagina();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-        paginacion.appendChild(btn);
+      // --- SINCRONIZAR CON HEADER ---
+      if (searchBoxHeader) {
+          searchBoxHeader.addEventListener('input', function() {
+              inputBusqueda.value = this.value;
+              if (timeoutBusqueda) {
+                  clearTimeout(timeoutBusqueda);
+              }
+              timeoutBusqueda = setTimeout(ejecutarBusqueda, 500);
+          });
+      }
+
+      // --- BOTONES DE CANTIDAD Y AGREGAR AL CARRITO ---
+      contenedor.addEventListener("click", function(e) {
+          // Manejar botones de cantidad
+          if (e.target.classList.contains("mas")) {
+              const input = e.target.parentElement.querySelector(".cantidad-input");
+              let valor = parseInt(input.value) || 1;
+              input.value = valor + 1;
+              e.preventDefault();
+              return;
+          }
+          
+          if (e.target.classList.contains("menos")) {
+              const input = e.target.parentElement.querySelector(".cantidad-input");
+              let valor = parseInt(input.value) || 1;
+              if (valor > 1) {
+                  input.value = valor - 1;
+              }
+              e.preventDefault();
+              return;
+          }
+
+          // Manejar botón agregar al carrito
+          if (e.target.classList.contains("agregar")) {
+              const card = e.target.closest(".producto-card");
+              // Solo agregar si el producto está visible
+              if (card.style.display !== "none") {
+                  const cantidad = parseInt(card.querySelector(".cantidad-input").value) || 1;
+
+                  const producto = {
+                      id: card.dataset.id,
+                      nombre: card.dataset.nombre,
+                      precio: parseFloat(card.dataset.precio),
+                      imagen: card.dataset.img,
+                      descripcion: card.dataset.desc,
+                      cantidad: cantidad
+                  };
+
+                  console.log('🛒 Agregando producto:', producto);
+                  agregarAlCarrito(producto);
+              }
+              e.preventDefault();
+          }
       });
-    }
 
-    // --- Inicializar ---
-    window.addEventListener("load", () => {
-      dividirPorAltura();
-      mostrarPagina();
-    });
-
-    window.addEventListener("resize", () => {
-      dividirPorAltura();
-      mostrarPagina();
-    });
-
-    // --- Botones de cantidad + y - ---
-    contenedor.addEventListener("click", e => {
-      if (e.target.classList.contains("mas") || e.target.classList.contains("menos")) {
-        const input = e.target.parentElement.querySelector(".cantidad-input");
-        let valor = parseInt(input.value) || 1;
-        if (e.target.classList.contains("mas")) valor++;
-        if (e.target.classList.contains("menos") && valor > 1) valor--;
-        input.value = valor;
-        return;
+      // --- ELIMINAR PAGINACIÓN COMPLEJA ---
+      // En lugar de paginación compleja, mostramos todos los productos
+      // y confiamos en el scroll infinito natural del navegador
+      if (paginacion) {
+          paginacion.style.display = 'none';
       }
 
-      if (e.target.classList.contains("agregar")) {
-        const card = e.target.closest(".producto-card");
-        const cantidad = parseInt(card.querySelector(".cantidad-input").value) || 1;
-
-        const producto = {
-          id: card.dataset.id,
-          nombre: card.dataset.nombre,
-          precio: parseFloat(card.dataset.precio),
-          imagen: card.dataset.img,
-          descripcion: card.dataset.desc,
-          cantidad: cantidad
-        };
-
-        console.log('🛒 Agregando producto:', producto);
-        agregarAlCarrito(producto);
-      }
-    });
+      console.log('✅ Búsqueda simplificada configurada correctamente');
   }
 
   // === LOADER DE TRANSICIÓN ENTRE PÁGINAS ===

@@ -1908,6 +1908,30 @@ th {
   color: #667eea;
 }
 
+
+/* Agregar al archivo styles.css */
+
+.mensaje-no-resultados {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 2px dashed #dee2e6;
+}
+
+.mensaje-no-resultados p {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Asegurar que la paginación se oculte cuando no hay productos */
+.paginacion[style*="none"] + .mensaje-no-resultados {
+  margin-top: 1rem;
+}
 /* === ESTILOS ESPECÍFICOS PARA PRODUCTOS.HTML === */
 
 /* Header específico para productos */

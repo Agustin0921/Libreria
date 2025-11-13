@@ -148,7 +148,7 @@
 }
 
 #logoutBtn a::after {
-    content: '🚪';
+    content: '';
     margin-left: auto;
     font-size: 12px;
 }
@@ -203,31 +203,6 @@
     .dropdown-menu {
         width: 180px;
         right: -10px;
-    }
-}
-
-/* Modo oscuro opcional */
-@media (prefers-color-scheme: dark) {
-    .dropdown-menu {
-        background: #2c3e50;
-        border-color: #34495e;
-    }
-    
-    .dropdown-menu::before {
-        background: #2c3e50;
-        border-color: #34495e;
-    }
-    
-    .dropdown-menu li {
-        border-bottom-color: #34495e;
-    }
-    
-    .dropdown-menu li a {
-        color: #ecf0f1;
-    }
-    
-    .dropdown-menu li a:hover {
-        background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
     }
 }
 
